@@ -4,5 +4,31 @@
 type User @model {
   id: ID! @isUnique
   name: String!
-  email: String!
+  email: String! @isUnique
+  password: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type Chat @model {
+  id: ID! @isUnique
+  title: String
+  isGroup: Boolean!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type Message @model {
+  id: ID! @isUnique
+  text: String!
+  createdAt: DateTime!
+}
+
+type File @model {
+  id: ID! @isUnique
+  secret: String
+  name: String
+  size: Int
+  url: String
+  contentType: String
 }
