@@ -13,6 +13,7 @@ export class AppComponent {
   constructor(
     private http: HttpClient
   ) {
+    this.createUser();
     this.allUsers();
   }
 
@@ -32,6 +33,30 @@ export class AppComponent {
 
     this.http.post(this.apiURL, body)
       .subscribe(res => console.log('Query: ', res));
+
+  }
+
+  createUser(): void {
+
+    const body = {
+      query: `
+        mutation CreateNewUser($name: String!, $email: String!, $password: String!) {
+          createUser(name: $name, email: $email, password: $password) {
+            id
+            name
+            email
+          }
+        }
+      `,
+      variables: {
+        name: 'Black Panther',
+        email: 'panther@avengers.com',
+        password: '123456'
+      }
+    };
+
+    this.http.post(this.apiURL, body)
+      .subscribe(res => console.log('Mutation: ', res));
 
   }
 
