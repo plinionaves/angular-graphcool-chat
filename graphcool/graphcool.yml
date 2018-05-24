@@ -19,6 +19,27 @@ types: ./types.graphql
 
 
 functions:
+
+# added by email-password template: (please uncomment)
+# 
+#   signup:
+#     type: resolver
+#     schema: src/email-password/signup.graphql
+#     handler:
+#       code: src/email-password/signup.ts
+# 
+#   authenticate:
+#     type: resolver
+#     schema: src/email-password/authenticate.graphql
+#     handler:
+#       code: src/email-password/authenticate.ts
+# 
+#   loggedInUser:
+#     type: resolver
+#     schema: src/email-password/loggedInUser.graphql
+#     handler:
+#       code: src/email-password/loggedInUser.ts
+
   hello:
     handler:
       code: src/hello.js
