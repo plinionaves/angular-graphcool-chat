@@ -45,6 +45,7 @@ export default async (event: FunctionEvent<EventData>) => {
     const token = await graphcool.generateNodeToken(userId, 'User');
 
     return { data: { id: userId, token } };
+
   } catch (e) {
     console.log(e);
     return { error: 'An unexpected error occured during signup.' };
@@ -81,7 +82,7 @@ async function createGraphcoolUser(api: GraphQLClient, email: string, password: 
 
   const variables = {
     email,
-    password: password,
+    password
   };
 
   return api.request<{ createUser: User }>(mutation, variables)
