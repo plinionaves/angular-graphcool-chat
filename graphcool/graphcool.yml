@@ -71,6 +71,16 @@ permissions:
   - operation: Chat.delete
     authenticated: true
 
+  # Message
+  - operation: Message.read
+    authenticated: true
+  - operation: Message.create
+    authenticated: true
+  - operation: Message.update
+    authenticated: true
+  - operation: Message.delete
+    authenticated: true
+
 # read, create, update, delete
 # connect, disconnect
 
