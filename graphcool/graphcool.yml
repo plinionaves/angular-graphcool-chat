@@ -81,6 +81,16 @@ permissions:
   - operation: Message.delete
     authenticated: true
 
+  # File
+  - operation: File.read
+    authenticated: true
+  - operation: File.create
+    authenticated: true
+  - operation: File.update
+    authenticated: true
+  - operation: File.delete
+    authenticated: true
+
 # read, create, update, delete
 # connect, disconnect
 
