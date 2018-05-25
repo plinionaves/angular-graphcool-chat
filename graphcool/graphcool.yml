@@ -34,11 +34,11 @@ functions:
     handler:
       code: src/email-password/authenticate.ts
 
-#   loggedInUser:
-#     type: resolver
-#     schema: src/email-password/loggedInUser.graphql
-#     handler:
-#       code: src/email-password/loggedInUser.ts
+  loggedInUser:
+    type: resolver
+    schema: src/email-password/loggedInUser.graphql
+    handler:
+      code: src/email-password/loggedInUser.ts
 
 
 # Model/Relation permissions are used to limit the API access
