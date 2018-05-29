@@ -12,10 +12,22 @@
 
         <mat-form-field>
           <input matInput type="email" placeholder="Email" formControlName="email">
+          <mat-error *ngIf="email.hasError('required')">
+            This field is required
+          </mat-error>
+          <mat-error *ngIf="email.hasError('email')">
+            Please enter a valid email address
+          </mat-error>
         </mat-form-field>
 
         <mat-form-field>
           <input matInput type="password" placeholder="Password" formControlName="password">
+          <mat-error *ngIf="password.hasError('required')">
+            This field is required
+          </mat-error>
+          <mat-error *ngIf="password.hasError('minlength')">
+            Enter at least 5 characters
+          </mat-error>
         </mat-form-field>
 
         <button type="submit" mat-button color="primary" [disabled]="loginForm.invalid">Sign In</button>
