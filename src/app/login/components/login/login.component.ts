@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
+import { AuthService } from '../../../core/services/auth.service';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -18,6 +20,7 @@ export class LoginComponent implements OnInit {
           new FormControl('', [Validators.required, Validators.minLength(5)]);
 
   constructor(
+    private authService: AuthService,
     private formBuilder: FormBuilder
   ) { }
 
