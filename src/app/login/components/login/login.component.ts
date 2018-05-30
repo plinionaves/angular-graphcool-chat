@@ -17,7 +17,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   configs = {
     isLogin: true,
     actionText: 'SignIn',
-    buttonActionText: 'Create account'
+    buttonActionText: 'Create account',
+    isLoading: false
   };
   private nameControl =
           new FormControl('', [Validators.required, Validators.minLength(5)]);
@@ -44,6 +45,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   onSubmit(): void {
     console.log(this.loginForm.value);
 
+    this.configs.isLoading = true;
+
     const operation =
       (this.configs.isLogin)
         ? this.authService.signinUser(this.loginForm.value)
@@ -55,9 +58,11 @@ export class LoginComponent implements OnInit, OnDestroy {
       ).subscribe(
         res => {
           console.log('redirecting...', res);
+          this.configs.isLoading = false;
         },
         err => {
           console.log(err);
+          this.configs.isLoading = false;
           this.snackBar.open(this.errorService.getErrorMessage(err), 'Done', {duration: 5000, verticalPosition: 'top'});
         },
         () => console.log('Observable completed!')

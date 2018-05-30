@@ -3,7 +3,15 @@
   <mat-card>
 
     <mat-card-title>
-      <mat-toolbar color="primary">{{ configs.actionText }}</mat-toolbar>
+      <mat-toolbar color="primary">
+        <span>{{ configs.actionText }}</span>
+        <span class="spacer"></span>
+        <mat-spinner
+          diameter="25"
+          strokeWidth="2"
+          *ngIf="configs.isLoading">
+        </mat-spinner>
+      </mat-toolbar>
     </mat-card-title>
 
     <mat-card-content>

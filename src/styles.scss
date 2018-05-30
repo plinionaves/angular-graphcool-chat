@@ -2,3 +2,11 @@
 html, body {
   margin: 0;
 }
+
+app-login .mat-spinner circle {
+  stroke: #fff;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
