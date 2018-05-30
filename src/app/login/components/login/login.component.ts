@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { takeWhile } from 'rxjs/operators';
 
 import { AuthService } from '../../../core/services/auth.service';
+import { ErrorService } from '../../../core/services/error.service';
 
 @Component({
   selector: 'app-login',
@@ -23,6 +24,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   constructor(
     private authService: AuthService,
+    private errorService: ErrorService,
     private formBuilder: FormBuilder
   ) { }
 
@@ -52,7 +54,9 @@ export class LoginComponent implements OnInit, OnDestroy {
         res => {
           console.log('redirecting...', res);
         },
-        err => {},
+        err => {
+          console.log(this.errorService.getErrorMessage(err));
+        },
         () => console.log('Observable completed!')
       );
 
