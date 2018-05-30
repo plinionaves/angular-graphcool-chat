@@ -37,6 +37,16 @@ export class LoginComponent implements OnInit {
 
   onSubmit(): void {
     console.log(this.loginForm.value);
+
+    const operation =
+      (this.configs.isLogin)
+        ? this.authService.signinUser(this.loginForm.value)
+        : this.authService.signupUser(this.loginForm.value);
+
+    operation.subscribe(res => {
+      console.log('redirecting...', res);
+    });
+
   }
 
   changeAction(): void {
