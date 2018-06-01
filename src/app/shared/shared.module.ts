@@ -8,6 +8,7 @@ import {
   MatInputModule,
   MatProgressSpinnerModule,
   MatSnackBarModule,
+  MatSlideToggleModule,
   MatToolbarModule
 } from '@angular/material';
 
@@ -20,6 +21,7 @@ import {
     MatInputModule,
     MatProgressSpinnerModule,
     MatSnackBarModule,
+    MatSlideToggleModule,
     MatToolbarModule,
     ReactiveFormsModule
   ]
