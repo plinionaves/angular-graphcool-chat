@@ -1,5 +1,17 @@
 import gql from 'graphql-tag';
 
+export interface LoggedInUserQuery {
+  loggedInUser: { id: string };
+}
+
+export const LOGGED_IN_USER_QUERY = gql`
+  query LoggedInUserQuery {
+    loggedInUser {
+      id
+    }
+  }
+`;
+
 export const AUTHENTICATE_USER_MUTATION = gql`
   mutation AuthenticateUserMutation($email: String!, $password: String!) {
     authenticateUser(email: $email, password: $password) {
