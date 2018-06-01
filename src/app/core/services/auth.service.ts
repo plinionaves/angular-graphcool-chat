@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject, BehaviorSubject, ReplaySubject } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { Apollo } from 'apollo-angular';
 
 import { AUTHENTICATE_USER_MUTATION, SIGNUP_USER_MUTATION } from './auth.graphql';
@@ -10,26 +10,12 @@ import { AUTHENTICATE_USER_MUTATION, SIGNUP_USER_MUTATION } from './auth.graphql
 })
 export class AuthService {
 
-  /*
-    Subject
-    BehaviorSubject
-    ReplaySubject
-   */
-
   private _isAuthenticated = new ReplaySubject<boolean>(1);
 
   constructor(
     private apollo: Apollo
   ) {
-    this.isAuthenticated.subscribe(res => {
-      console.log('AuthState', res);
-    });
-
-    let authState = false;
-    setInterval(() => {
-      this._isAuthenticated.next(authState);
-      authState = !authState;
-    }, 5000);
+    this.isAuthenticated.subscribe(is => console.log('AuthState', is));
   }
 
   get isAuthenticated(): Observable<boolean> {
@@ -41,7 +27,8 @@ export class AuthService {
       mutation: AUTHENTICATE_USER_MUTATION,
       variables
     }).pipe(
-      map(res => res.data.authenticateUser)
+      map(res => res.data.authenticateUser),
+      tap(res => this.setAuthState(res !== null))
     );
   }
 
@@ -50,8 +37,13 @@ export class AuthService {
       mutation: SIGNUP_USER_MUTATION,
       variables
     }).pipe(
-      map(res => res.data.signupUser)
+      map(res => res.data.signupUser),
+      tap(res => this.setAuthState(res !== null))
     );
+  }
+
+  private setAuthState(isAuthenticated: boolean): void {
+    this._isAuthenticated.next(isAuthenticated);
   }
 
 }
