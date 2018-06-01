@@ -10,6 +10,7 @@ import { AUTHENTICATE_USER_MUTATION, SIGNUP_USER_MUTATION } from './auth.graphql
 })
 export class AuthService {
 
+  redirectUrl: string;
   private _isAuthenticated = new ReplaySubject<boolean>(1);
 
   constructor(

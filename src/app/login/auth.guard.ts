@@ -28,7 +28,7 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> {
-    return this.checkAuthState();
+    return this.checkAuthState(state.url);
   }
 
   canActivateChild(
@@ -39,15 +39,18 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
   }
 
   canLoad(route: Route): Observable<boolean> {
-    return this.checkAuthState()
+    // route.path
+    const url = window.location.pathname;
+    return this.checkAuthState(url)
       .pipe(take(1));
   }
 
-  private checkAuthState(): Observable<boolean> {
+  private checkAuthState(url: string): Observable<boolean> {
     return this.authService.isAuthenticated
       .pipe(
         tap(is => {
           if (!is) {
+            this.authService.redirectUrl = url;
             this.router.navigate(['/login']);
           }
         })
