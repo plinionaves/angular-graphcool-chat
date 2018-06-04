@@ -20,6 +20,12 @@ export class AuthService {
   ) {
     this.isAuthenticated.subscribe(is => console.log('AuthState', is));
     this.init();
+
+    this.validateToken()
+      .subscribe(
+        res => console.log('Res:', res),
+        err => console.log('Err:', err)
+      );
   }
 
   init(): void {
