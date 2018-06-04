@@ -76,7 +76,11 @@ export class AuthService {
           const token = window.localStorage.getItem(StorageKeys.AUTH_TOKEN);
           this.setAuthState({token, isAuthenticated: authData.isAuthenticated});
         }),
-        mergeMap(res => of())
+        mergeMap(res => of()),
+        catchError(error => {
+          this.setAuthState({token: null, isAuthenticated: false});
+          return throwError(error);
+        })
       );
   }
 
