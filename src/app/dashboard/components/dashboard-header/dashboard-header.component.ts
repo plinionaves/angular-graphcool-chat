@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 
 import { AuthService } from '../../../core/services/auth.service';
 
@@ -7,14 +8,12 @@ import { AuthService } from '../../../core/services/auth.service';
   templateUrl: './dashboard-header.component.html',
   styleUrls: ['./dashboard-header.component.scss']
 })
-export class DashboardHeaderComponent implements OnInit {
+export class DashboardHeaderComponent {
 
   constructor(
-    private authService: AuthService
+    private authService: AuthService,
+    public title: Title
   ) { }
-
-  ngOnInit() {
-  }
 
   onLogout(): void {
     this.authService.logout();
