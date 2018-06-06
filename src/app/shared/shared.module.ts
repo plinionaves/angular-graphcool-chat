@@ -10,6 +10,7 @@ import {
   MatLineModule,
   MatListModule,
   MatProgressSpinnerModule,
+  MatSidenavModule,
   MatSnackBarModule,
   MatSlideToggleModule,
   MatToolbarModule
@@ -26,6 +27,7 @@ import {
     MatLineModule,
     MatListModule,
     MatProgressSpinnerModule,
+    MatSidenavModule,
     MatSnackBarModule,
     MatSlideToggleModule,
     MatToolbarModule,
