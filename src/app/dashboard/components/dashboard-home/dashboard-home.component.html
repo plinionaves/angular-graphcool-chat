@@ -5,8 +5,7 @@
   </mat-sidenav>
 
   <mat-sidenav-content>
-    <app-dashboard-header></app-dashboard-header>
-    <button mat-button (click)="sidenav.toggle()">Toggle menu</button>
+    <app-dashboard-header [sidenav]="sidenav"></app-dashboard-header>
   </mat-sidenav-content>
 
 </mat-sidenav-container>
