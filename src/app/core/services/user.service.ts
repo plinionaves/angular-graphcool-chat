@@ -15,10 +15,13 @@ export class UserService {
     private apollo: Apollo
   ) { }
 
-  allUsers(): Observable<User[]> {
+  allUsers(idToExclude: string): Observable<User[]> {
     return this.apollo
       .query<AllUsersQuery>({
-        query: ALL_USERS_QUERY
+        query: ALL_USERS_QUERY,
+        variables: {
+          idToExclude
+        }
       }).pipe(
         map(res => res.data.allUsers)
       );

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
+import { AuthService } from '../../../core/services/auth.service';
 import { User } from '../../../core/models/user.model';
 import { UserService } from '../../../core/services/user.service';
 
@@ -14,11 +15,12 @@ export class ChatUsersComponent implements OnInit {
   users$: Observable<User[]>;
 
   constructor(
+    private authService: AuthService,
     private userService: UserService
   ) { }
 
   ngOnInit() {
-    this.users$ = this.userService.allUsers();
+    this.users$ = this.userService.allUsers(this.authService.authUser.id);
   }
 
 }
