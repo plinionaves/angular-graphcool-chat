@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+
+import { User } from '../../../core/models/user.model';
+import { UserService } from '../../../core/services/user.service';
 
 @Component({
   selector: 'app-chat-users',
@@ -7,9 +11,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ChatUsersComponent implements OnInit {
 
-  constructor() { }
+  users$: Observable<User[]>;
+
+  constructor(
+    private userService: UserService
+  ) { }
 
   ngOnInit() {
+    this.users$ = this.userService.allUsers();
   }
 
 }
