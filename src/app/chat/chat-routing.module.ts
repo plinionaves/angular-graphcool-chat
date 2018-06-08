@@ -5,6 +5,7 @@ import { AuthGuard } from '../login/auth.guard';
 import { ChatListComponent } from './components/chat-list/chat-list.component';
 import { ChatTabComponent } from './components/chat-tab/chat-tab.component';
 import { ChatUsersComponent } from './components/chat-users/chat-users.component';
+import { ChatWindowComponent } from './components/chat-window/chat-window.component';
 
 const routes: Routes = [
   {
@@ -16,7 +17,8 @@ const routes: Routes = [
       { path: 'users', component: ChatUsersComponent },
       { path: '', component: ChatListComponent }
     ]
-  }
+  },
+  { path: ':id', component: ChatWindowComponent, canActivate: [ AuthGuard ] }
 ];
 
 @NgModule({
