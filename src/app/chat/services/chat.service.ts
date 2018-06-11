@@ -6,10 +6,9 @@ import { map } from 'rxjs/operators';
 import { AllChatsQuery, USER_CHATS_QUERY } from './chat.graphql';
 import { AuthService } from '../../core/services/auth.service';
 import { Chat } from '../models/chat.model';
-import { ChatModule } from '../chat.module';
 
 @Injectable({
-  providedIn: ChatModule
+  providedIn: 'root'
 })
 export class ChatService {
 
