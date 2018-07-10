@@ -5,6 +5,10 @@ export interface AllUsersQuery {
   allUsers: User[];
 }
 
+export interface UserQuery {
+  User: User;
+}
+
 export const ALL_USERS_QUERY = gql`
   query AllUsersQuery($idToExclude: ID!) {
     allUsers(
@@ -13,6 +17,17 @@ export const ALL_USERS_QUERY = gql`
         id_not: $idToExclude
       }
     ) {
+      id
+      name
+      email
+      createdAt
+    }
+  }
+`;
+
+export const GET_USER_BY_ID_QUERY = gql`
+  query GetUserByIdQuery($userId: ID!) {
+    User(id: $userId) {
       id
       name
       email
