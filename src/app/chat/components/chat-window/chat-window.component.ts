@@ -1,12 +1,14 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Title } from '@angular/platform-browser';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { map, mergeMap, tap, take } from 'rxjs/operators';
 
 import { Chat } from '../../models/chat.model';
-import { UserService } from '../../../core/services/user.service';
+import { Message } from '../../models/message.model';
+import { MessageService } from '../../services/message.service';
 import { User } from '../../../core/models/user.model';
+import { UserService } from '../../../core/services/user.service';
 
 @Component({
   selector: 'app-chat-window',
@@ -16,10 +18,12 @@ import { User } from '../../../core/models/user.model';
 export class ChatWindowComponent implements OnDestroy, OnInit {
 
   chat: Chat;
+  messages$: Observable<Message[]>;
   recipientId: string = null;
   private subscriptions: Subscription[] = [];
 
   constructor(
+    private messageService: MessageService,
     private route: ActivatedRoute,
     private title: Title,
     private userService: UserService
@@ -41,6 +45,7 @@ export class ChatWindowComponent implements OnDestroy, OnInit {
                 .subscribe((user: User) => this.title.setTitle(user.name));
             } else {
               this.title.setTitle(this.chat.title || this.chat.users[0].name);
+              this.messages$ = this.messageService.getChatMessages(this.chat.id);
             }
           })
         )
