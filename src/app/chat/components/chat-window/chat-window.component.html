@@ -4,9 +4,9 @@
 
 <mat-toolbar class="footer" color="primary">
   <mat-toolbar-row>
-    <input class="input" type="text" placeholder="Type a message">
+    <input class="input" type="text" [(ngModel)]="newMessage" (keyup.enter)="sendMessage()" placeholder="Type a message">
     <span class="spacer"></span>
-    <button mat-icon-button>
+    <button mat-icon-button (click)="sendMessage()">
       <mat-icon>send</mat-icon>
     </button>
   </mat-toolbar-row>
