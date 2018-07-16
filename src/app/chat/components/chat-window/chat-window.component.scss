@@ -1,0 +1,16 @@
+.footer {
+  position: fixed;
+  bottom: 0;
+}
+
+.input {
+  flex: 1 1 90%;
+  height: 21px;
+  border: none;
+  padding: 3px 10px;
+  font-size: 16px;
+  color: #555;
+  background-color: #efefef;
+  outline: none;
+  resize: none;
+}
