@@ -1,3 +1,7 @@
-<p>
-  chat-message works!
-</p>
+<div class="message-container">
+  <div class="text-container" [ngClass]="{'sender-container': isFromSender}">
+    <i class="arrow" [ngClass]="arrowClass"></i>
+    <span class="text">{{ message.text }}</span>
+    <span class="time"><small>{{ message.createdAt | date: 'dd/MM/yy HH:mm:ss' }}</small></span>
+  </div>
+</div>
