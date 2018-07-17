@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+
+import { Message } from '../../models/message.model';
 
 @Component({
   selector: 'app-chat-message',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ChatMessageComponent implements OnInit {
 
-  constructor() { }
+  @Input() message: Message;
+  @Input() isFromSender: boolean;
+  arrowClass = {};
 
-  ngOnInit() {
+  ngOnInit(): void {
+    this.arrowClass = {
+      'arrow-left': !this.isFromSender,
+      'arrow-right': this.isFromSender
+    };
   }
 
 }
