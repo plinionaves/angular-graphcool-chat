@@ -30,7 +30,15 @@ export class ChatService {
         userId: this.authService.authUser.id
       }
     }).pipe(
-      map(res => res.data.allChats)
+      map(res => res.data.allChats),
+      map((chats: Chat[]) => {
+        const chatsToSort = chats.slice();
+        return chatsToSort.sort((a, b) => {
+          const valueA = (a.messages.length > 0) ? new Date(a.messages[0].createdAt).getTime() : new Date(a.createdAt).getTime();
+          const valueB = (b.messages.length > 0) ? new Date(b.messages[0].createdAt).getTime() : new Date(b.createdAt).getTime();
+          return valueB - valueA;
+        });
+      })
     );
   }
 
