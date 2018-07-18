@@ -1,1 +1,58 @@
 @import "_variables.scss";
+
+.message-container {
+  margin: 20px 12px;
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.text-container {
+  flex: 1 0 80%;
+  position: relative;
+  margin-left: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  .text {
+    background-color: $gray;
+    color: #555;
+    box-shadow: 1px 1px 2px #ccc;
+    padding: 3px 15px;
+  }
+  .time {
+    color: #ccc;
+    text-align: right;
+  }
+}
+
+.arrow {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 10px 10px 0;
+  display: inline-block;
+  position: absolute;
+}
+
+.arrow-right {
+  border-color: transparent $primary transparent transparent;
+  transform: rotate(-90deg);
+  right: -10px;
+}
+
+.arrow-left {
+  border-color: transparent $gray transparent transparent;
+  transform: rotate(0);
+  left: -10px;
+}
+
+.sender-container {
+  align-items: flex-end;
+  margin-left: 0;
+  margin-right: 20px;
+  .text {
+    background-color: $primary;
+    box-shadow: -1px 1px 2px #ccc;
+    color: #fff;
+  }
+}
