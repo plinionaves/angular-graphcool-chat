@@ -1,6 +1,8 @@
-<ul>
-  <li *ngFor="let message of messages$ | async">{{ message.text }}</li>
-</ul>
+<app-chat-message
+  *ngFor="let m of messages$ | async"
+  [message]="m"
+  [isFromSender]="m.sender.id === authService.authUser.id">
+</app-chat-message>
 
 <mat-toolbar class="footer" color="primary">
   <mat-toolbar-row>

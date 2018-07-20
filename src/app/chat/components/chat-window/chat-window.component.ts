@@ -26,7 +26,7 @@ export class ChatWindowComponent implements OnDestroy, OnInit {
   private subscriptions: Subscription[] = [];
 
   constructor(
-    private authService: AuthService,
+    public authService: AuthService,
     private chatService: ChatService,
     private messageService: MessageService,
     private route: ActivatedRoute,
