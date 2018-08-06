@@ -1,4 +1,10 @@
 <div class="message-container">
+  <app-avatar
+    [src]="'assets/images/user-no-photo.png'"
+    [title]="message.sender.name"
+    [containerStyles]="{width: '40px', height: '40px', margin: 0}"
+    [style.order]="isFromSender ? 1 : 0">
+  </app-avatar>
   <div class="text-container" [ngClass]="{'sender-container': isFromSender}">
     <i class="arrow" [ngClass]="arrowClass"></i>
     <span class="text">{{ message.text }}</span>
