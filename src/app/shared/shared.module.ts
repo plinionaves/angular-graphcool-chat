@@ -26,6 +26,7 @@ import { NoRecordComponent } from './components/no-record/no-record.component';
     NoRecordComponent
   ],
   imports: [
+    CommonModule,
     MatIconModule
   ],
   exports: [
