@@ -18,11 +18,13 @@ import {
 } from '@angular/material';
 
 import { AvatarComponent } from './components/avatar/avatar.component';
+import { FromNowPipe } from './pipes/from-now.pipe';
 import { NoRecordComponent } from './components/no-record/no-record.component';
 
 @NgModule({
   declarations: [
     AvatarComponent,
+    FromNowPipe,
     NoRecordComponent
   ],
   imports: [
@@ -33,6 +35,7 @@ import { NoRecordComponent } from './components/no-record/no-record.component';
     AvatarComponent,
     CommonModule,
     FormsModule,
+    FromNowPipe,
     MatButtonModule,
     MatCardModule,
     MatFormFieldModule,
