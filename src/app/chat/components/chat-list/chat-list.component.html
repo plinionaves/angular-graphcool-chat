@@ -3,7 +3,12 @@
   <ng-container *ngIf="chats$ | async as chats; else loadingChats">
     <ng-container *ngIf="chats.length > 0; else noChats">
       <a mat-list-item [routerLink]="[chat.id]" *ngFor="let chat of chats">
-        <img matListAvatar src="assets/images/user-no-photo.png" [title]="getChatTitle(chat)">
+        <app-avatar
+          matListAvatar
+          [src]="'assets/images/user-no-photo.png'"
+          [title]="getChatTitle(chat)"
+          [containerStyles]="{width: '40px', height: '40px', margin: 0}">
+        </app-avatar>
         <h3 matLine>{{ getChatTitle(chat) }}</h3>
         <p matLine>{{ getLastMessage(chat) }}</p>
       </a>

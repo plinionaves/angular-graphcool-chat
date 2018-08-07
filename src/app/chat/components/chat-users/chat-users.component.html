@@ -3,7 +3,12 @@
   <ng-container *ngIf="users$ | async as users; else loadingUsers">
     <ng-container *ngIf="users.length > 0; else noUsers">
       <a mat-list-item [routerLink]="['../', user.id]" *ngFor="let user of users">
-        <img matListAvatar src="assets/images/user-no-photo.png" [title]="user.name">
+        <app-avatar
+          matListAvatar
+          [src]="'assets/images/user-no-photo.png'"
+          [title]="user.name"
+          [containerStyles]="{width: '40px', height: '40px', margin: 0}">
+        </app-avatar>
         <h3 matLine>{{ user.name }}</h3>
         <p matLine>Member since {{ user.createdAt | date: 'dd/MM/yyyy' }}</p>
       </a>
