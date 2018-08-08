@@ -9,43 +9,57 @@ export interface ChatQuery {
   Chat: Chat;
 }
 
-export const USER_CHATS_QUERY = gql`
-  query UserChatsQuery($userId: ID!) {
-    allChats(
+const ChatFragment = gql`
+  fragment ChatFragment on Chat {
+    id
+    title
+    createdAt
+    isGroup
+    users(
+      first: 1,
       filter: {
-        users_some: {
-          id: $userId
-        }
+        id_not: $loggedUserId
       }
     ) {
       id
-      title
+      name
+      email
       createdAt
-      isGroup
-      users(
-        first: 1,
-        filter: {
-          id_not: $userId
-        }
-      ) {
+    }
+  }
+`;
+
+const ChatMessagesFragment = gql`
+  fragment ChatMessagesFragment on Chat {
+    messages(
+      last: 1
+    ) {
+      id
+      createdAt
+      text
+      sender {
         id
         name
-        email
-        createdAt
-      }
-      messages(
-        last: 1
-      ) {
-        id
-        createdAt
-        text
-        sender {
-          id
-          name
-        }
       }
     }
   }
+`;
+
+export const USER_CHATS_QUERY = gql`
+  query UserChatsQuery($loggedUserId: ID!) {
+    allChats(
+      filter: {
+        users_some: {
+          id: $loggedUserId
+        }
+      }
+    ) {
+      ...ChatFragment
+      ...ChatMessagesFragment
+    }
+  }
+  ${ChatFragment}
+  ${ChatMessagesFragment}
 `;
 
 export const CHAT_BY_ID_OR_BY_USERS_QUERY = gql`
@@ -54,21 +68,7 @@ export const CHAT_BY_ID_OR_BY_USERS_QUERY = gql`
     Chat(
       id: $chatId
     ) {
-      id
-      title
-      createdAt
-      isGroup
-      users(
-        first: 1,
-        filter: {
-          id_not: $loggedUserId
-        }
-      ) {
-        id
-        name
-        email
-        createdAt
-      }
+      ...ChatFragment
     }
 
     allChats(
@@ -80,24 +80,11 @@ export const CHAT_BY_ID_OR_BY_USERS_QUERY = gql`
         isGroup: false
       }
     ) {
-      id
-      title
-      createdAt
-      isGroup
-      users(
-        first: 1,
-        filter: {
-          id_not: $loggedUserId
-        }
-      ) {
-        id
-        name
-        email
-        createdAt
-      }
+      ...ChatFragment
     }
 
   }
+  ${ChatFragment}
 `;
 
 export const CREATE_PRIVATE_CHAT_MUTATION = gql`
@@ -108,32 +95,10 @@ export const CREATE_PRIVATE_CHAT_MUTATION = gql`
         $targetUserId
       ]
     ) {
-      id
-      title
-      createdAt
-      isGroup
-      users(
-        first: 1,
-        filter: {
-          id_not: $loggedUserId
-        }
-      ) {
-        id
-        name
-        email
-        createdAt
-      }
-      messages(
-        last: 1
-      ) {
-        id
-        createdAt
-        text
-        sender {
-          id
-          name
-        }
-      }
+      ...ChatFragment
+      ...ChatMessagesFragment
     }
   }
+  ${ChatFragment}
+  ${ChatMessagesFragment}
 `;
