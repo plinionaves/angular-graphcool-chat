@@ -2,7 +2,7 @@
 
   <ng-container *ngIf="users$ | async as users; else loadingUsers">
     <ng-container *ngIf="users.length > 0; else noUsers">
-      <a mat-list-item [routerLink]="['../', user.id]" *ngFor="let user of users">
+      <a mat-list-item [routerLink]="['../', user.id]" *ngFor="let user of users; trackBy: trackByFn">
         <app-avatar
           matListAvatar
           [src]="'assets/images/user-no-photo.png'"

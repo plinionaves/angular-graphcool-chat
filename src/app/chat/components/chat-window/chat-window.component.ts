@@ -5,6 +5,7 @@ import { Observable, Subscription, of } from 'rxjs';
 import { map, mergeMap, tap, take } from 'rxjs/operators';
 
 import { AuthService } from '../../../core/services/auth.service';
+import { BaseComponent } from '../../../shared/components/base.component';
 import { Chat } from '../../models/chat.model';
 import { ChatService } from '../../services/chat.service';
 import { Message } from '../../models/message.model';
@@ -17,7 +18,7 @@ import { UserService } from '../../../core/services/user.service';
   templateUrl: './chat-window.component.html',
   styleUrls: ['./chat-window.component.scss']
 })
-export class ChatWindowComponent implements OnDestroy, OnInit {
+export class ChatWindowComponent extends BaseComponent<Message> implements OnDestroy, OnInit {
 
   chat: Chat;
   messages$: Observable<Message[]>;
@@ -32,7 +33,9 @@ export class ChatWindowComponent implements OnDestroy, OnInit {
     private route: ActivatedRoute,
     private title: Title,
     private userService: UserService
-  ) { }
+  ) {
+    super();
+  }
 
   ngOnInit(): void {
     this.title.setTitle('Loading...');

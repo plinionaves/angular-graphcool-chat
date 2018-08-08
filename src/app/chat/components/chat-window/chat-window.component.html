@@ -4,7 +4,7 @@
     <ng-container *ngIf="messages.length > 0; else noMessages">
 
       <app-chat-message
-        *ngFor="let m of messages"
+        *ngFor="let m of messages; trackBy: trackByFn"
         [message]="m"
         [isFromSender]="m.sender.id === authService.authUser.id">
       </app-chat-message>

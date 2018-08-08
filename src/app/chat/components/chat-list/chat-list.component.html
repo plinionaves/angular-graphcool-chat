@@ -2,7 +2,7 @@
 
   <ng-container *ngIf="chats$ | async as chats; else loadingChats">
     <ng-container *ngIf="chats.length > 0; else noChats">
-      <a mat-list-item [routerLink]="[chat.id]" *ngFor="let chat of chats">
+      <a mat-list-item [routerLink]="[chat.id]" *ngFor="let chat of chats; trackBy: trackByFn">
         <app-avatar
           matListAvatar
           [src]="'assets/images/user-no-photo.png'"
