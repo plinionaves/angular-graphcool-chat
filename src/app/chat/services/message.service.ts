@@ -20,12 +20,13 @@ export class MessageService {
   ) { }
 
   getChatMessages(chatId: string): Observable<Message[]> {
-    return this.apollo.query<AllMessagesQuery>({
+    return this.apollo.watchQuery<AllMessagesQuery>({
       query: GET_CHAT_MESSAGES_QUERY,
       variables: { chatId }
-    }).pipe(
-      map(res => res.data.allMessages)
-    );
+    }).valueChanges
+      .pipe(
+        map(res => res.data.allMessages)
+      );
   }
 
   createMessage(message: {text: string, chatId: string, senderId: string}): Observable<Message> {
