@@ -34,6 +34,26 @@ export class MessageService {
     return this.apollo.mutate({
       mutation: CREATE_MESSAGE_MUTATION,
       variables: message,
+      optimisticResponse: {
+        __typename: 'Mutation',
+        createMessage: {
+          __typename: 'Message',
+          id: '',
+          text: message.text,
+          createdAt: new Date().toISOString(),
+          sender: {
+            __typename: 'User',
+            id: message.senderId,
+            name: '',
+            email: '',
+            createdAt: ''
+          },
+          chat: {
+            __typename: 'Chat',
+            id: message.chatId
+          }
+        }
+      },
       update: (store: DataProxy, {data: { createMessage }}) => {
 
         const data = store.readQuery<AllMessagesQuery>({
