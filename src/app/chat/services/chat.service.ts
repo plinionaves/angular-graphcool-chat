@@ -66,6 +66,22 @@ export class ChatService {
       },
       update: (store: DataProxy, { data: { createChat } }) => {
 
+        const userChatsVariables = { loggedUserId: this.authService.authUser.id };
+
+        const userChatsData = store.readQuery<AllChatsQuery>({
+          query: USER_CHATS_QUERY,
+          variables: userChatsVariables
+        });
+
+        userChatsData.allChats = [createChat, ...userChatsData.allChats];
+
+        store.writeQuery({
+          query: USER_CHATS_QUERY,
+          variables: userChatsVariables,
+          data: userChatsData
+        });
+
+
         const variables = {
           chatId: targetUserId,
           loggedUserId: this.authService.authUser.id,
