@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
+import { DataProxy } from 'apollo-cache';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -61,6 +62,28 @@ export class ChatService {
       variables: {
         loggedUserId: this.authService.authUser.id,
         targetUserId
+      },
+      update: (store: DataProxy, { data: { createChat } }) => {
+
+        const variables = {
+          chatId: targetUserId,
+          loggedUserId: this.authService.authUser.id,
+          targetUserId
+        };
+
+        const data = store.readQuery<AllChatsQuery>({
+          query: CHAT_BY_ID_OR_BY_USERS_QUERY,
+          variables
+        });
+
+        data.allChats = [createChat];
+
+        store.writeQuery({
+          query: CHAT_BY_ID_OR_BY_USERS_QUERY,
+          variables,
+          data
+        });
+
       }
     }).pipe(
       map(res => res.data.createChat)
