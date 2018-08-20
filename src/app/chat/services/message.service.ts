@@ -4,11 +4,13 @@ import { DataProxy } from 'apollo-cache';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+import { AllChatsQuery, USER_CHATS_QUERY } from './chat.graphql';
 import {
   AllMessagesQuery,
   CREATE_MESSAGE_MUTATION,
   GET_CHAT_MESSAGES_QUERY
 } from './message.graphql';
+import { AuthService } from '../../core/services/auth.service';
 import { Message } from '../models/message.model';
 
 @Injectable({
@@ -17,7 +19,8 @@ import { Message } from '../models/message.model';
 export class MessageService {
 
   constructor(
-    private apollo: Apollo
+    private apollo: Apollo,
+    private authService: AuthService
   ) { }
 
   getChatMessages(chatId: string): Observable<Message[]> {
@@ -73,6 +76,37 @@ export class MessageService {
 
         } catch (e) {
           console.log('allMessagesQuery not found!');
+        }
+
+
+        try {
+
+          const userChatsVariables = { loggedUserId: this.authService.authUser.id };
+
+          const userChatsData = store.readQuery<AllChatsQuery>({
+            query: USER_CHATS_QUERY,
+            variables: userChatsVariables
+          });
+
+          const newUserChatsList = [...userChatsData.allChats];
+
+          newUserChatsList.map(c => {
+            if (c.id === createMessage.chat.id) {
+              c.messages = [createMessage];
+            }
+            return c;
+          });
+
+          userChatsData.allChats = newUserChatsList;
+
+          store.writeQuery({
+            query: USER_CHATS_QUERY,
+            variables: userChatsVariables,
+            data: userChatsData
+          });
+
+        } catch (e) {
+          console.log('allChatsQuery not found!');
         }
 
       }
