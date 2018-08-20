@@ -1,4 +1,4 @@
-<section class="content">
+<section class="content" #content>
 
   <ng-container *ngIf="messages$ | async as messages; else loadingMessages">
     <ng-container *ngIf="messages.length > 0; else noMessages">
