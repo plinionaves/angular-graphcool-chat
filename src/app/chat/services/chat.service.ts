@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
+import { NavigationEnd, Router, RouterEvent } from '@angular/router';
 import { Apollo } from 'apollo-angular';
 import { DataProxy } from 'apollo-cache';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { AuthService } from '../../core/services/auth.service';
@@ -20,15 +21,22 @@ import { Chat } from '../models/chat.model';
 export class ChatService {
 
   chats$: Observable<Chat[]>;
+  private subscriptions: Subscription[] = [];
 
   constructor(
     private apollo: Apollo,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) { }
 
   startChatsMonitoring(): void {
     this.chats$ = this.getUserChats();
-    this.chats$.subscribe();
+    this.subscriptions.push(this.chats$.subscribe());
+    this.router.events.subscribe((event: RouterEvent) => {
+      if (event instanceof NavigationEnd && !this.router.url.includes('chat')) {
+        this.onDestroy();
+      }
+    });
   }
 
   getUserChats(): Observable<Chat[]> {
@@ -112,6 +120,11 @@ export class ChatService {
     }).pipe(
       map(res => res.data.createChat)
     );
+  }
+
+  private onDestroy(): void {
+    this.subscriptions.forEach(s => s.unsubscribe());
+    this.subscriptions = [];
   }
 
 }
