@@ -2,11 +2,13 @@ import { Inject, NgModule } from '@angular/core';
 import { HttpClientModule, HttpHeaders } from '@angular/common/http';
 
 import { Apollo, ApolloModule } from 'apollo-angular';
-import { ApolloLink } from 'apollo-link';
 import { HttpLink, HttpLinkModule } from 'apollo-angular-link-http';
-import { onError } from 'apollo-link-error';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { persistCache } from 'apollo-cache-persist';
+import { ApolloLink, Operation } from 'apollo-link';
+import { onError } from 'apollo-link-error';
+import { WebSocketLink } from 'apollo-link-ws';
+import { getOperationAST } from 'graphql';
 
 import { environment } from '../environments/environment';
 import { GRAPHCOOL_CONFIG, GraphcoolConfig } from './core/providers/graphcool-config.provider';
@@ -51,6 +53,14 @@ export class ApolloConfigModule {
       if (networkError) { console.log(`[Network error]: ${networkError}`); }
     });
 
+    const ws = new WebSocketLink({
+      uri: this.graphcoolConfig.subscriptionsAPI,
+      options: {
+        reconnect: true,
+        timeout: 30000
+      }
+    });
+
     const cache = new InMemoryCache();
 
     persistCache({
@@ -63,7 +73,14 @@ export class ApolloConfigModule {
     apollo.create({
       link: ApolloLink.from([
         linkError,
-        authMiddleware.concat(http)
+        ApolloLink.split(
+          (operation: Operation) => {
+            const operationAST = getOperationAST(operation.query, operation.operationName);
+            return !!operationAST && operationAST.operation === 'subscription';
+          },
+          ws,
+          authMiddleware.concat(http)
+        )
       ]),
       cache,
       connectToDevTools: !environment.production
