@@ -9,6 +9,7 @@ import { ApolloLink, Operation } from 'apollo-link';
 import { onError } from 'apollo-link-error';
 import { WebSocketLink } from 'apollo-link-ws';
 import { getOperationAST } from 'graphql';
+import { SubscriptionClient } from 'subscriptions-transport-ws';
 
 import { environment } from '../environments/environment';
 import { GRAPHCOOL_CONFIG, GraphcoolConfig } from './core/providers/graphcool-config.provider';
@@ -22,6 +23,8 @@ import { StorageKeys } from './storage-keys';
   ]
 })
 export class ApolloConfigModule {
+
+  private subscriptionClient: SubscriptionClient;
 
   constructor(
     private apollo: Apollo,
@@ -62,6 +65,8 @@ export class ApolloConfigModule {
       }
     });
 
+    this.subscriptionClient = (<any>ws).subscriptionClient;
+
     const cache = new InMemoryCache();
 
     persistCache({
@@ -87,6 +92,10 @@ export class ApolloConfigModule {
       connectToDevTools: !environment.production
     });
 
+  }
+
+  closeWebSocketConnection(): void {
+    this.subscriptionClient.close(true, true);
   }
 
   private getAuthToken(): string {
