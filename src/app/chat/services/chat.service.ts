@@ -33,13 +33,15 @@ export class ChatService {
   ) { }
 
   startChatsMonitoring(): void {
-    this.chats$ = this.getUserChats();
-    this.subscriptions.push(this.chats$.subscribe());
-    this.router.events.subscribe((event: RouterEvent) => {
-      if (event instanceof NavigationEnd && !this.router.url.includes('chat')) {
-        this.onDestroy();
-      }
-    });
+    if (!this.chats$) {
+      this.chats$ = this.getUserChats();
+      this.subscriptions.push(this.chats$.subscribe());
+      this.router.events.subscribe((event: RouterEvent) => {
+        if (event instanceof NavigationEnd && !this.router.url.includes('chat')) {
+          this.onDestroy();
+        }
+      });
+    }
   }
 
   getUserChats(): Observable<Chat[]> {
