@@ -13,7 +13,7 @@ import {
   AllChatsQuery,
   ChatQuery
 } from './chat.graphql';
-import { USER_MESSAGES_SUBSCRIPTION } from './message.graphql';
+import { GET_CHAT_MESSAGES_QUERY, USER_MESSAGES_SUBSCRIPTION, AllMessagesQuery } from './message.graphql';
 import { Chat } from '../models/chat.model';
 import { Message } from '../models/message.model';
 
@@ -56,6 +56,32 @@ export class ChatService {
       updateQuery: (previous: AllChatsQuery, { subscriptionData }): AllChatsQuery => {
 
         const newMessage: Message = subscriptionData.data.Message.node;
+
+        try {
+
+          if (newMessage.sender.id !== this.authService.authUser.id) {
+            const apolloClient = this.apollo.getClient();
+
+            const chatMessagesVariables = { chatId: newMessage.chat.id };
+
+            const chatMessagesData = apolloClient.readQuery<AllMessagesQuery>({
+              query: GET_CHAT_MESSAGES_QUERY,
+              variables: chatMessagesVariables
+            });
+
+            chatMessagesData.allMessages = [...chatMessagesData.allMessages, newMessage];
+
+            apolloClient.writeQuery({
+              query: GET_CHAT_MESSAGES_QUERY,
+              variables: chatMessagesVariables,
+              data: chatMessagesData
+            });
+          }
+
+        } catch (e) {
+          console.log('allMessagesQuery not found!');
+        }
+
 
         const chatToUpdateIndex: number =
           (previous.allChats)
