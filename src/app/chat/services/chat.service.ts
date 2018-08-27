@@ -10,6 +10,7 @@ import {
   CHAT_BY_ID_OR_BY_USERS_QUERY,
   CREATE_PRIVATE_CHAT_MUTATION,
   USER_CHATS_QUERY,
+  USER_CHATS_SUBSCRIPTION,
   AllChatsQuery,
   ChatQuery
 } from './chat.graphql';
@@ -49,6 +50,24 @@ export class ChatService {
       query: USER_CHATS_QUERY,
       variables: {
         loggedUserId: this.authService.authUser.id
+      }
+    });
+
+    this.queryRef.subscribeToMore({
+      document: USER_CHATS_SUBSCRIPTION,
+      variables: { loggedUserId: this.authService.authUser.id },
+      updateQuery: (previous: AllChatsQuery, { subscriptionData }): AllChatsQuery => {
+
+        const newChat: Chat = subscriptionData.data.Chat.node;
+
+        if (previous.allChats.every(chat => chat.id !== newChat.id)) {
+          return {
+            ...previous,
+            allChats: [newChat, ...previous.allChats]
+          };
+        }
+
+        return previous;
       }
     });
 
