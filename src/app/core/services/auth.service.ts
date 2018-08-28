@@ -100,6 +100,7 @@ export class AuthService {
     this.apolloConfigModule.closeWebSocketConnection();
     window.localStorage.removeItem(StorageKeys.AUTH_TOKEN);
     window.localStorage.removeItem(StorageKeys.KEEP_SIGNED);
+    this.apolloConfigModule.cachePersistor.purge();
     this.keepSigned = false;
     this._isAuthenticated.next(false);
     this.router.navigate(['/login']);
@@ -129,7 +130,8 @@ export class AuthService {
 
   private validateToken(): Observable<{id: string, isAuthenticated: boolean}> {
     return this.apollo.query<LoggedInUserQuery>({
-      query: LOGGED_IN_USER_QUERY
+      query: LOGGED_IN_USER_QUERY,
+      fetchPolicy: 'network-only'
     }).pipe(
       map(res => {
         const user = res.data.loggedInUser;
