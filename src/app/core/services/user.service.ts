@@ -27,7 +27,6 @@ export class UserService {
 
   startUsersMonitoring(idToExclude: string): void {
     if (!this.users$) {
-      console.log('Start');
       this.users$ = this.allUsers(idToExclude);
       this.usersSubscription = this.users$.subscribe();
     }
@@ -35,7 +34,6 @@ export class UserService {
 
   stopUsersMonitoring(): void {
     if (this.usersSubscription) {
-      console.log('Stop');
       this.usersSubscription.unsubscribe();
       this.usersSubscription = null;
       this.users$ = null;

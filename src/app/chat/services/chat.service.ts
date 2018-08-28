@@ -39,13 +39,21 @@ export class ChatService {
     if (!this.chats$) {
       this.chats$ = this.getUserChats();
       this.subscriptions.push(this.chats$.subscribe());
-      this.router.events.subscribe((event: RouterEvent) => {
-        if (event instanceof NavigationEnd && !this.router.url.includes('chat')) {
-          this.onDestroy();
-          this.userService.stopUsersMonitoring();
-        }
-      });
+      this.subscriptions.push(
+        this.router.events.subscribe((event: RouterEvent) => {
+          if (event instanceof NavigationEnd && !this.router.url.includes('chat')) {
+            this.stopChatsMonitoring();
+            this.userService.stopUsersMonitoring();
+          }
+        })
+      );
     }
+  }
+
+  private stopChatsMonitoring(): void {
+    this.subscriptions.forEach(s => s.unsubscribe());
+    this.subscriptions = [];
+    this.chats$ = null;
   }
 
   getUserChats(): Observable<Chat[]> {
@@ -53,7 +61,8 @@ export class ChatService {
       query: USER_CHATS_QUERY,
       variables: {
         loggedUserId: this.authService.authUser.id
-      }
+      },
+      fetchPolicy: 'network-only'
     });
 
     this.queryRef.subscribeToMore({
@@ -202,11 +211,6 @@ export class ChatService {
     }).pipe(
       map(res => res.data.createChat)
     );
-  }
-
-  private onDestroy(): void {
-    this.subscriptions.forEach(s => s.unsubscribe());
-    this.subscriptions = [];
   }
 
 }
