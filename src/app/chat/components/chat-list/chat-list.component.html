@@ -31,3 +31,14 @@
     title="No chats.">
   </app-no-record>
 </ng-template>
+
+<button mat-fab class="fab-bottom-right" [matMenuTriggerFor]="chatListOptions">
+  <mat-icon>add</mat-icon>
+</button>
+
+<mat-menu #chatListOptions="matMenu" [overlapTrigger]="false">
+  <button mat-menu-item>
+    <mat-icon>group_add</mat-icon>
+    <span>New group</span>
+  </button>
+</mat-menu>
