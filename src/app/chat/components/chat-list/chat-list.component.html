@@ -37,7 +37,7 @@
 </button>
 
 <mat-menu #chatListOptions="matMenu" [overlapTrigger]="false">
-  <button mat-menu-item>
+  <button mat-menu-item (click)="onAddGroup()">
     <mat-icon>group_add</mat-icon>
     <span>New group</span>
   </button>
