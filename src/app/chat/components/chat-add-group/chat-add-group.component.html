@@ -19,7 +19,7 @@
         <h3 matSubheader>Add users:</h3>
         <mat-list-item *ngFor="let user of users">
           <h3 matLine>{{ user.name }}</h3>
-          <button type="button" mat-icon-button>
+          <button type="button" mat-icon-button (click)="addMember(user)">
             <mat-icon>add</mat-icon>
           </button>
         </mat-list-item>
