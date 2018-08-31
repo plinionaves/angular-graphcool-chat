@@ -1,16 +1,22 @@
 <h2 mat-dialog-title>New Group</h2>
 
-<form>
+<form [formGroup]="newGroupForm" (submit)="onSubmit()">
 
   <mat-dialog-content>
     <mat-form-field>
-      <input matInput type="text" placeholder="Group title" />
+      <input matInput type="text" placeholder="Group title" formControlName="title" />
+      <mat-error *ngIf="title.touched && title.hasError('required')">
+        This field is required
+      </mat-error>
+      <mat-error *ngIf="title.touched && title.hasError('minlength')">
+        Enter 3 at least characters
+      </mat-error>
     </mat-form-field>
   </mat-dialog-content>
 
   <mat-dialog-actions>
     <button mat-button mat-dialog-close>Cancel</button>
-    <button mat-button type="submit">Create</button>
+    <button mat-button type="submit" [disabled]="newGroupForm.invalid">Create</button>
   </mat-dialog-actions>
 
 </form>
