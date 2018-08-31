@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-chat-add-group',
@@ -20,11 +20,13 @@ export class ChatAddGroupComponent implements OnInit {
 
   private createForm(): void {
     this.newGroupForm = this.fb.group({
-      title: ['', [Validators.required, Validators.minLength(3)]]
+      title: this.fb.control('', [Validators.required, Validators.minLength(3)]),
+      members: this.fb.array([], Validators.required)
     });
   }
 
   get title(): FormControl { return <FormControl>this.newGroupForm.get('title'); }
+  get members(): FormArray { return <FormArray>this.newGroupForm.get('members'); }
 
   onSubmit(): void {
     console.log(this.newGroupForm.value);
