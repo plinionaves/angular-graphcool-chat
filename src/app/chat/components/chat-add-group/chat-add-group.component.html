@@ -3,6 +3,7 @@
 <form [formGroup]="newGroupForm" (submit)="onSubmit()">
 
   <mat-dialog-content>
+
     <mat-form-field>
       <input matInput type="text" placeholder="Group title" formControlName="title" />
       <mat-error *ngIf="title.touched && title.hasError('required')">
@@ -12,6 +13,22 @@
         Enter 3 at least characters
       </mat-error>
     </mat-form-field>
+
+    <mat-list *ngIf="users$ | async as users">
+      <ng-container *ngIf="users.length > 0; else noUsersTemplate">
+        <h3 matSubheader>Add users:</h3>
+        <mat-list-item *ngFor="let user of users">
+          <h3 matLine>{{ user.name }}</h3>
+          <button type="button" mat-icon-button>
+            <mat-icon>add</mat-icon>
+          </button>
+        </mat-list-item>
+      </ng-container>
+      <ng-template #noUsersTemplate>
+        <p>No users found.</p>
+      </ng-template>
+    </mat-list>
+
   </mat-dialog-content>
 
   <mat-dialog-actions>
