@@ -220,7 +220,10 @@ export class ChatService {
 
     return this.apollo.mutate({
       mutation: CREATE_GROUP_MUTATION,
-      variables,
+      variables: {
+        ...variables,
+        loggedUserId: this.authService.authUser.id
+      },
       optimisticResponse: {
         __typename: 'Mutation',
         createChat: {
