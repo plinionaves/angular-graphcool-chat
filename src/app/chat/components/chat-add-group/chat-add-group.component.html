@@ -14,7 +14,18 @@
       </mat-error>
     </mat-form-field>
 
-    <mat-list *ngIf="users$ | async as users">
+    <mat-nav-list formArrayName="members" *ngIf="members.controls.length > 0">
+      <h3 matSubheader>Selected users:</h3>
+      <mat-list-item *ngFor="let member of members.controls; let i=index" [formGroupName]="i">
+        <h3 matLine>{{ member.value.name }}</h3>
+        <button type="button" mat-icon-button>
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+    </mat-nav-list>
+
+    <mat-nav-list *ngIf="users$ | async as users">
       <ng-container *ngIf="users.length > 0; else noUsersTemplate">
         <h3 matSubheader>Add users:</h3>
         <mat-list-item *ngFor="let user of users">
@@ -27,7 +38,7 @@
       <ng-template #noUsersTemplate>
         <p>No users found.</p>
       </ng-template>
-    </mat-list>
+    </mat-nav-list>
 
   </mat-dialog-content>
 
