@@ -103,6 +103,21 @@ export const CREATE_PRIVATE_CHAT_MUTATION = gql`
   ${ChatMessagesFragment}
 `;
 
+export const CREATE_GROUP_MUTATION = gql`
+  mutation CreateGroupMutation($title: String!, $usersIds: [ID!]!) {
+    createChat(
+      title: $title,
+      usersIds: $usersIds
+      isGroup: true
+    ) {
+      ...ChatFragment
+      ...ChatMessagesFragment
+    }
+  }
+  ${ChatFragment}
+  ${ChatMessagesFragment}
+`;
+
 export const USER_CHATS_SUBSCRIPTION = gql`
   subscription UserChatsSubscription($loggedUserId: ID!) {
     Chat(

@@ -8,6 +8,7 @@ import { map } from 'rxjs/operators';
 import { AuthService } from '../../core/services/auth.service';
 import {
   CHAT_BY_ID_OR_BY_USERS_QUERY,
+  CREATE_GROUP_MUTATION,
   CREATE_PRIVATE_CHAT_MUTATION,
   USER_CHATS_QUERY,
   USER_CHATS_SUBSCRIPTION,
@@ -208,6 +209,18 @@ export class ChatService {
         });
 
       }
+    }).pipe(
+      map(res => res.data.createChat)
+    );
+  }
+
+  createGroup(variables: {title: string, usersIds: string[]}): Observable<Chat> {
+
+    variables.usersIds.push(this.authService.authUser.id);
+
+    return this.apollo.mutate({
+      mutation: CREATE_GROUP_MUTATION,
+      variables
     }).pipe(
       map(res => res.data.createChat)
     );
