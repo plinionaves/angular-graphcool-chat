@@ -55,6 +55,10 @@ export class ChatAddGroupComponent implements OnDestroy, OnInit {
     console.log(this.newGroupForm.value);
   }
 
+  removeMember(index: number): void {
+    this.members.removeAt(index);
+  }
+
   onSubmit(): void {
     console.log(this.newGroupForm.value);
   }
