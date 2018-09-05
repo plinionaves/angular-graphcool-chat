@@ -69,9 +69,16 @@ export class LoginComponent implements OnInit, OnDestroy {
           this.authService.setRememberMe(this.loginForm.value);
           const redirect: string = this.authService.redirectUrl || '/dashboard';
           console.log('redirecting...', redirect);
-          this.router.navigate([redirect]);
-          this.authService.redirectUrl = null;
-          this.configs.isLoading = false;
+
+          this.authService.isAuthenticated
+            .pipe(takeWhile(() => this.alive))
+            .subscribe((is: boolean) => {
+              if (is) {
+                this.router.navigate([redirect]);
+                this.authService.redirectUrl = null;
+                this.configs.isLoading = false;
+              }
+            });
         },
         err => {
           console.log(err);
