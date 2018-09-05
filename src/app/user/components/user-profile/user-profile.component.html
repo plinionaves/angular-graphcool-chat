@@ -1,3 +1,31 @@
-<p>
-  user-profile works!
-</p>
+<mat-card class="user-profile mat-typography">
+
+  <mat-card-header>
+    <div class="photo">
+      <app-avatar
+        mat-card-avatar
+        title="Auth User"
+        src="assets/images/user-no-photo.png">
+      </app-avatar>
+      <button mat-icon-button color="primary" class="btn-edit-user">
+        <mat-icon>edit</mat-icon>
+      </button>
+    </div>
+  </mat-card-header>
+
+  <mat-card-content>
+    <ng-container>
+      <h2>User name</h2>
+      <p>User email</p>
+    </ng-container>
+  </mat-card-content>
+
+</mat-card>
+
+<mat-toolbar color="primary" class="fixed-bottom">
+  <h1>Actions</h1>
+  <span class="spacer"></span>
+  <button mat-icon-button title="Save">
+    <mat-icon>checked</mat-icon>
+  </button>
+</mat-toolbar>
