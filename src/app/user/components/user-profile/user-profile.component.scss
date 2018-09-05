@@ -1,0 +1,28 @@
+.user-profile {
+  margin: 20px;
+  mat-card-content {
+    text-align: center;
+  }
+}
+
+.text-center {
+  text-align: center;
+}
+
+.photo {
+  width: 180px;
+  height: 180px;
+  margin: auto;
+  position: relative;
+  .btn-edit-user, .btn-choose-photo {
+    position: absolute;
+    bottom: 0;
+    background-color: white;
+  }
+  .btn-edit-user {
+    left: 0;
+  }
+  .btn-choose-photo {
+    right: 0;
+  }
+}
