@@ -146,22 +146,25 @@ export class AuthService {
     );
   }
 
-  private setAuthUser(userId: string): void {
-    this.userService.getUserById(userId)
+  private setAuthUser(userId: string): Observable<User> {
+    return this.userService.getUserById(userId)
       .pipe(
-        take(1),
         tap((user: User) => this.authUser = user)
-      ).subscribe();
+      );
   }
 
   private setAuthState(authData: {id: string, token: string, isAuthenticated: boolean}, isRefresh: boolean = false): void {
     if (authData.isAuthenticated) {
       window.localStorage.setItem(StorageKeys.AUTH_TOKEN, authData.token);
-      this.authUser = { id: authData.id };
-      this.setAuthUser(this.authUser.id);
+      this.setAuthUser(authData.id)
+        .pipe(
+          take(1),
+          tap(() => this._isAuthenticated.next(authData.isAuthenticated))
+        ).subscribe();
       if (!isRefresh) {
         this.apolloConfigModule.closeWebSocketConnection();
       }
+      return;
     }
     this._isAuthenticated.next(authData.isAuthenticated);
   }
