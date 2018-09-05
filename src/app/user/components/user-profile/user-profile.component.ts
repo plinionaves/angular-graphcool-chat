@@ -11,6 +11,7 @@ import { User } from '../../../core/models/user.model';
 export class UserProfileComponent implements OnInit {
 
   user: User;
+  isEditing = false;
 
   constructor(
     private authService: AuthService

@@ -7,66 +7,71 @@
         title="Auth User"
         src="assets/images/user-no-photo.png">
       </app-avatar>
-      <button mat-icon-button color="primary" class="btn-edit-user">
+      <button mat-icon-button color="primary" class="btn-edit-user" (click)="isEditing = !isEditing">
         <mat-icon>edit</mat-icon>
       </button>
     </div>
   </mat-card-header>
 
   <mat-card-content>
-    <ng-container>
+
+    <ng-container *ngIf="!isEditing; else editTemplate">
       <h2>{{ user.name }}</h2>
       <p>{{ user.email }}</p>
     </ng-container>
 
     <form #userForm="ngForm">
-      <div>
-        <mat-form-field>
+      <ng-template #editTemplate>
 
-          <input
-            matInput
-            required
-            minlength="5"
-            type="text"
-            name="name"
-            class="text-center"
-            placeholder="Name"
-            [(ngModel)]="user.name"
-            #name="ngModel">
+        <div>
+          <mat-form-field>
 
-          <mat-error *ngIf="name.touched && name.hasError('required')">
-            This field is required
-          </mat-error>
-          <mat-error *ngIf="name.touched && name.hasError('minlength')">
-            Enter at least 5 characters
-          </mat-error>
+            <input
+              matInput
+              required
+              minlength="5"
+              type="text"
+              name="name"
+              class="text-center"
+              placeholder="Name"
+              [(ngModel)]="user.name"
+              #name="ngModel">
 
-        </mat-form-field>
-      </div>
+            <mat-error *ngIf="name.touched && name.hasError('required')">
+              This field is required
+            </mat-error>
+            <mat-error *ngIf="name.touched && name.hasError('minlength')">
+              Enter at least 5 characters
+            </mat-error>
 
-      <div>
-        <mat-form-field>
+          </mat-form-field>
+        </div>
 
-          <input
-            matInput
-            required
-            email
-            type="email"
-            name="email"
-            class="text-center"
-            placeholder="Email"
-            [(ngModel)]="user.email"
-            #email="ngModel">
+        <div>
+          <mat-form-field>
 
-          <mat-error *ngIf="email.touched && email.hasError('required')">
-            This field is required
-          </mat-error>
-          <mat-error *ngIf="email.touched && email.hasError('email')">
-            Please enter a valid email address
-          </mat-error>
+            <input
+              matInput
+              required
+              email
+              type="email"
+              name="email"
+              class="text-center"
+              placeholder="Email"
+              [(ngModel)]="user.email"
+              #email="ngModel">
 
-        </mat-form-field>
-      </div>
+            <mat-error *ngIf="email.touched && email.hasError('required')">
+              This field is required
+            </mat-error>
+            <mat-error *ngIf="email.touched && email.hasError('email')">
+              Please enter a valid email address
+            </mat-error>
+
+          </mat-form-field>
+        </div>
+
+      </ng-template>
     </form>
 
   </mat-card-content>
@@ -76,7 +81,7 @@
 <mat-toolbar color="primary" class="fixed-bottom">
   <h1>Actions</h1>
   <span class="spacer"></span>
-  <button mat-icon-button title="Save" [disabled]="userForm.invalid">
+  <button mat-icon-button title="Save" [disabled]="userForm.invalid || !isEditing">
     <mat-icon>checked</mat-icon>
   </button>
 </mat-toolbar>
