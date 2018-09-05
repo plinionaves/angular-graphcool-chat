@@ -19,17 +19,55 @@
       <p>{{ user.email }}</p>
     </ng-container>
 
-    <div>
-      <mat-form-field>
-        <input matInput type="text" class="text-center" placeholder="Name" [(ngModel)]="user.name">
-      </mat-form-field>
-    </div>
+    <form #userForm="ngForm">
+      <div>
+        <mat-form-field>
 
-    <div>
-      <mat-form-field>
-        <input matInput type="email" class="text-center" placeholder="Email" [(ngModel)]="user.email">
-      </mat-form-field>
-    </div>
+          <input
+            matInput
+            required
+            minlength="5"
+            type="text"
+            name="name"
+            class="text-center"
+            placeholder="Name"
+            [(ngModel)]="user.name"
+            #name="ngModel">
+
+          <mat-error *ngIf="name.touched && name.hasError('required')">
+            This field is required
+          </mat-error>
+          <mat-error *ngIf="name.touched && name.hasError('minlength')">
+            Enter at least 5 characters
+          </mat-error>
+
+        </mat-form-field>
+      </div>
+
+      <div>
+        <mat-form-field>
+
+          <input
+            matInput
+            required
+            email
+            type="email"
+            name="email"
+            class="text-center"
+            placeholder="Email"
+            [(ngModel)]="user.email"
+            #email="ngModel">
+
+          <mat-error *ngIf="email.touched && email.hasError('required')">
+            This field is required
+          </mat-error>
+          <mat-error *ngIf="email.touched && email.hasError('email')">
+            Please enter a valid email address
+          </mat-error>
+
+        </mat-form-field>
+      </div>
+    </form>
 
   </mat-card-content>
 
@@ -38,7 +76,7 @@
 <mat-toolbar color="primary" class="fixed-bottom">
   <h1>Actions</h1>
   <span class="spacer"></span>
-  <button mat-icon-button title="Save">
+  <button mat-icon-button title="Save" [disabled]="userForm.invalid">
     <mat-icon>checked</mat-icon>
   </button>
 </mat-toolbar>
