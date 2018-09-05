@@ -18,6 +18,19 @@
       <h2>{{ user.name }}</h2>
       <p>{{ user.email }}</p>
     </ng-container>
+
+    <div>
+      <mat-form-field>
+        <input matInput type="text" class="text-center" placeholder="Name" [(ngModel)]="user.name">
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field>
+        <input matInput type="email" class="text-center" placeholder="Email" [(ngModel)]="user.email">
+      </mat-form-field>
+    </div>
+
   </mat-card-content>
 
 </mat-card>
