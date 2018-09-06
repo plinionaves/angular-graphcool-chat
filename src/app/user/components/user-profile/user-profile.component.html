@@ -7,7 +7,7 @@
         title="Auth User"
         src="assets/images/user-no-photo.png">
       </app-avatar>
-      <button mat-icon-button color="primary" class="btn-edit-user" (click)="isEditing = !isEditing">
+      <button mat-icon-button color="primary" class="btn-edit-user" (click)="isEditing = !isEditing" [disabled]="isLoading">
         <mat-icon>edit</mat-icon>
       </button>
     </div>
@@ -81,6 +81,11 @@
 <mat-toolbar color="primary" class="fixed-bottom">
   <h1>Actions</h1>
   <span class="spacer"></span>
+  <mat-spinner
+    diameter="25"
+    strokeWidth="2"
+    *ngIf="isLoading">
+  </mat-spinner>
   <button mat-icon-button title="Save" (click)="onSave()" [disabled]="userForm.invalid || !isEditing">
     <mat-icon>checked</mat-icon>
   </button>
