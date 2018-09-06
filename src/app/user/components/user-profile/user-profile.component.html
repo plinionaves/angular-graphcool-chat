@@ -81,7 +81,7 @@
 <mat-toolbar color="primary" class="fixed-bottom">
   <h1>Actions</h1>
   <span class="spacer"></span>
-  <button mat-icon-button title="Save" [disabled]="userForm.invalid || !isEditing">
+  <button mat-icon-button title="Save" (click)="onSave()" [disabled]="userForm.invalid || !isEditing">
     <mat-icon>checked</mat-icon>
   </button>
 </mat-toolbar>

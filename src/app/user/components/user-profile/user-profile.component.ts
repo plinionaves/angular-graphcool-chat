@@ -18,7 +18,11 @@ export class UserProfileComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.user = this.authService.authUser;
+    this.user = JSON.parse(JSON.stringify(this.authService.authUser));
+  }
+
+  onSave(): void {
+    console.log('User: ', this.user);
   }
 
 }
