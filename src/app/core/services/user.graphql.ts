@@ -41,6 +41,19 @@ export const GET_USER_BY_ID_QUERY = gql`
   ${UserFragment}
 `;
 
+export const UPDATE_USER_MUTATION = gql`
+  mutation UpdateUserMutation($id: ID!, $name: String!, $email: String!) {
+    updateUser(
+      id: $id,
+      name: $name,
+      email: $email
+    ) {
+      ...UserFragment
+    }
+  }
+  ${UserFragment}
+`;
+
 export const NEW_USERS_SUBSCRIPTION = gql`
   subscription NewUsersSubscription {
     User(
