@@ -23,13 +23,15 @@ import { AvatarComponent } from './components/avatar/avatar.component';
 import { FromNowPipe } from './pipes/from-now.pipe';
 import { ImagePreviewComponent } from './components/image-preview/image-preview.component';
 import { NoRecordComponent } from './components/no-record/no-record.component';
+import { ReadFilePipe } from './pipes/read-file.pipe';
 
 @NgModule({
   declarations: [
     AvatarComponent,
     FromNowPipe,
     ImagePreviewComponent,
-    NoRecordComponent
+    NoRecordComponent,
+    ReadFilePipe
   ],
   imports: [
     CommonModule,
@@ -64,6 +66,7 @@ import { NoRecordComponent } from './components/no-record/no-record.component';
     MatTabsModule,
     MatToolbarModule,
     NoRecordComponent,
+    ReadFilePipe,
     ReactiveFormsModule
   ]
 })

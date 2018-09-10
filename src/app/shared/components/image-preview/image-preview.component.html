@@ -1,6 +1,9 @@
 <mat-card>
   <mat-card-content>
-    <img mat-card-image src="assets/images/user-no-photo.png" />
+    <img mat-card-image *ngIf="selectedImage | readFile | async as imageSrc; else noImageTemplate" [src]="imageSrc" />
+    <ng-template #noImageTemplate>
+      <p>No image selected.</p>
+    </ng-template>
   </mat-card-content>
 </mat-card>
 
