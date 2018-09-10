@@ -30,6 +30,10 @@ export class UserProfileComponent implements OnInit {
     this.user = JSON.parse(JSON.stringify(this.authService.authUser));
   }
 
+  triggerInputFile(input: HTMLInputElement): void {
+    input.click();
+  }
+
   onSave(): void {
     this.isLoading = true;
     this.isEditing = false;
