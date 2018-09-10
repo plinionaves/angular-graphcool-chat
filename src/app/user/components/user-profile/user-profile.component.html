@@ -10,7 +10,7 @@
       <button mat-icon-button color="primary" class="btn-edit-user" (click)="isEditing = !isEditing" [disabled]="isLoading">
         <mat-icon>edit</mat-icon>
       </button>
-      <input type="file" accept="image/*" [hidden]="true" #inputFile>
+      <input type="file" accept="image/*" [hidden]="true" #inputFile (change)="onSelectImage($event)">
       <button mat-icon-button color="primary" class="btn-choose-photo" (click)="triggerInputFile(inputFile)">
         <mat-icon>camera_alt</mat-icon>
       </button>

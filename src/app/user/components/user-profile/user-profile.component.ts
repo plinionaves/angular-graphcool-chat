@@ -1,9 +1,10 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
-import { MatSnackBar } from '@angular/material';
+import { MatDialog, MatSnackBar } from '@angular/material';
 import { take } from 'rxjs/operators';
 
 import { AuthService } from '../../../core/services/auth.service';
 import { ErrorService } from '../../../core/services/error.service';
+import { ImagePreviewComponent } from '../../../shared/components/image-preview/image-preview.component';
 import { User } from '../../../core/models/user.model';
 import { UserService } from '../../../core/services/user.service';
 
@@ -22,6 +23,7 @@ export class UserProfileComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private errorService: ErrorService,
+    private dialog: MatDialog,
     private snackBar: MatSnackBar,
     private userService: UserService
   ) { }
@@ -32,6 +34,12 @@ export class UserProfileComponent implements OnInit {
 
   triggerInputFile(input: HTMLInputElement): void {
     input.click();
+  }
+
+  onSelectImage(event: Event): void {
+    const input: HTMLInputElement = <HTMLInputElement>event.target;
+    const file: File = input.files[0];
+    const dialogRef = this.dialog.open<ImagePreviewComponent, { image: File }>(ImagePreviewComponent, { data: { image: file } });
   }
 
   onSave(): void {
