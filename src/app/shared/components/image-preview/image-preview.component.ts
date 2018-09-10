@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 
 @Component({
   selector: 'app-image-preview',
@@ -25,9 +26,20 @@ export class ImagePreviewComponent implements OnInit {
 
   selectedImage: File;
 
-  constructor() { }
+  constructor(
+    @Inject(MAT_DIALOG_DATA) private data: { image: File },
+    private dialogRef: MatDialogRef<ImagePreviewComponent>
+  ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
+    this.selectedImage = this.data.image;
+  }
+
+  onSave(): void {
+    this.dialogRef.close({
+      canSave: true,
+      selectedImage: this.selectedImage
+    });
   }
 
 }

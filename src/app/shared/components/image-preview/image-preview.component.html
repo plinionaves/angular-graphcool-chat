@@ -10,7 +10,7 @@
   <button mat-icon-button matDialogClose>
     <mat-icon>close</mat-icon>
   </button>
-  <button mat-icon-button [disabled]="!selectedImage">
+  <button mat-icon-button [disabled]="!selectedImage" (click)="onSave()">
     <mat-icon>check</mat-icon>
   </button>
 </mat-toolbar>
