@@ -33,7 +33,9 @@ import { NoRecordComponent } from './components/no-record/no-record.component';
   ],
   imports: [
     CommonModule,
-    MatIconModule
+    MatCardModule,
+    MatIconModule,
+    MatToolbarModule
   ],
   exports: [
     AvatarComponent,

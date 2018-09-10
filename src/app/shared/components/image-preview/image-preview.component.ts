@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ImagePreviewComponent implements OnInit {
 
+  selectedImage: File;
+
   constructor() { }
 
   ngOnInit() {

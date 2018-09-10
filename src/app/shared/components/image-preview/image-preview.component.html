@@ -1,3 +1,16 @@
-<p>
-  image-preview works!
-</p>
+<mat-card>
+  <mat-card-content>
+    <img mat-card-image src="assets/images/user-no-photo.png" />
+  </mat-card-content>
+</mat-card>
+
+<mat-toolbar color="warn">
+  <h1>{{ selectedImage ? selectedImage.name : 'No photo' }}</h1>
+  <span class="spacer"></span>
+  <button mat-icon-button matDialogClose>
+    <mat-icon>close</mat-icon>
+  </button>
+  <button mat-icon-button [disabled]="!selectedImage">
+    <mat-icon>check</mat-icon>
+  </button>
+</mat-toolbar>
