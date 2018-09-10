@@ -39,7 +39,14 @@ export class UserProfileComponent implements OnInit {
   onSelectImage(event: Event): void {
     const input: HTMLInputElement = <HTMLInputElement>event.target;
     const file: File = input.files[0];
-    const dialogRef = this.dialog.open<ImagePreviewComponent, { image: File }>(ImagePreviewComponent, { data: { image: file } });
+    const dialogRef = this.dialog.open<ImagePreviewComponent, { image: File }>(
+        ImagePreviewComponent,
+        {
+          data: { image: file },
+          panelClass: 'mat-dialog-no-padding',
+          maxHeight: '80vh'
+        }
+      );
   }
 
   onSave(): void {
