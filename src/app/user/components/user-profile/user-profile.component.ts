@@ -29,7 +29,7 @@ export class UserProfileComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.user = JSON.parse(JSON.stringify(this.authService.authUser));
+    this.user = this.authService.authUser;
   }
 
   triggerInputFile(input: HTMLInputElement): void {

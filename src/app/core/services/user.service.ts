@@ -86,7 +86,8 @@ export class UserService {
 
     return this.queryRef.valueChanges
       .pipe(
-        map(res => res.data.allUsers)
+        map(res => res.data.allUsers),
+        map(users => users.map(user => new User(user)))
       );
   }
 
@@ -96,7 +97,8 @@ export class UserService {
         query: GET_USER_BY_ID_QUERY,
         variables: { userId: id }
       }).pipe(
-        map(res => res.data.User)
+        map(res => res.data.User),
+        map(user => new User(user))
       );
   }
 

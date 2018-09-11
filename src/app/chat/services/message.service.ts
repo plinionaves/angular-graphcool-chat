@@ -5,14 +5,15 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { AllChatsQuery, USER_CHATS_QUERY } from './chat.graphql';
+import { AuthService } from '../../core/services/auth.service';
 import { BaseService } from '../../core/services/base.service';
 import {
   AllMessagesQuery,
   CREATE_MESSAGE_MUTATION,
   GET_CHAT_MESSAGES_QUERY
 } from './message.graphql';
-import { AuthService } from '../../core/services/auth.service';
 import { Message } from '../models/message.model';
+import { User } from '../../core/models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -33,7 +34,12 @@ export class MessageService extends BaseService {
       fetchPolicy: 'network-only'
     }).valueChanges
       .pipe(
-        map(res => res.data.allMessages)
+        map(res => res.data.allMessages),
+        map(messages => messages.map(m => {
+          const message = Object.assign({}, m);
+          message.sender = new User(message.sender);
+          return message;
+        }))
       );
   }
 
