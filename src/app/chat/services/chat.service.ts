@@ -204,7 +204,7 @@ export class ChatService extends BaseService {
     );
   }
 
-  createGroup(variables: {title: string, usersIds: string[]}): Observable<Chat> {
+  createGroup(variables: {title: string, usersIds: string[], photoId: string}): Observable<Chat> {
 
     variables.usersIds.push(this.authService.authUser.id);
 

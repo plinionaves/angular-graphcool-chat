@@ -73,7 +73,8 @@ export class ChatAddGroupComponent implements OnDestroy, OnInit {
   onSubmit(): void {
     const formValue = Object.assign({
       title: this.title.value,
-      usersIds: this.members.value.map(m => m.id)
+      usersIds: this.members.value.map(m => m.id),
+      photoId: null
     });
 
     this.chatService.createGroup(formValue)
