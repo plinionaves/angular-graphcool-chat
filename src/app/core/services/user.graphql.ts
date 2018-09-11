@@ -1,5 +1,6 @@
 import gql from 'graphql-tag';
 import { User } from '../models/user.model';
+import { DocumentNode } from 'graphql';
 
 export interface AllUsersQuery {
   allUsers: User[];
@@ -68,7 +69,7 @@ const deleteFileMutation = `
   }
 `;
 
-export const getUpdateUserPhotoMutation = (hasOldPhoto: boolean) => {
+export const getUpdateUserPhotoMutation = (hasOldPhoto: boolean): DocumentNode => {
   if (hasOldPhoto) {
     return gql`
       mutation UpdateAndDeleteUserPhoto($loggedUserId: ID!, $newPhotoId: ID!, $oldPhotoId: ID!) {
