@@ -33,10 +33,6 @@ export class ChatListComponent extends BaseComponent<Chat> implements OnInit {
     return chat.title || chat.users[0].name;
   }
 
-  getChatImage(chat: Chat): string {
-    return !chat.isGroup ? 'assets/images/user-no-photo.png' : 'assets/images/group-no-photo.png';
-  }
-
   getLastMessage(chat: Chat): string {
     const message = chat.messages[0];
     if (message) {
