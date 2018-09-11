@@ -52,9 +52,23 @@ export class UserProfileComponent implements OnInit {
       .pipe(take(1))
       .subscribe(dialogData => {
         input.value = '';
-        console.log('Dialog closed!', dialogData);
         if (dialogData && dialogData.canSave) {
-          console.log('Save image!');
+          this.isLoading = true;
+          let message: string;
+          this.userService.updateUserPhoto(
+            dialogData.selectedImage,
+            this.authService.authUser
+          ).pipe(take(1)).subscribe(
+            (user: User) => {
+              message = 'Profile updated!';
+              this.authService.authUser.photo = user.photo;
+            },
+            error => message = this.errorService.getErrorMessage(error),
+            () => {
+              this.isLoading = false;
+              this.showMessage(message);
+            }
+          );
         }
       });
   }
@@ -70,9 +84,13 @@ export class UserProfileComponent implements OnInit {
         error => message = this.errorService.getErrorMessage(error),
         () => {
           this.isLoading = false;
-          this.snackBar.open(message, 'OK', { duration: 3000, verticalPosition: 'top' });
+          this.showMessage(message);
         }
       );
+  }
+
+  private showMessage(message: string): void {
+    this.snackBar.open(message, 'OK', { duration: 3000, verticalPosition: 'top' });
   }
 
 }
