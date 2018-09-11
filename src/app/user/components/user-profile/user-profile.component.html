@@ -4,8 +4,8 @@
     <div class="photo">
       <app-avatar
         mat-card-avatar
-        title="Auth User"
-        src="assets/images/user-no-photo.png">
+        [title]="user.name"
+        [src]="user.getPhotoURL()">
       </app-avatar>
       <button mat-icon-button color="primary" class="btn-edit-user" (click)="isEditing = !isEditing" [disabled]="isLoading">
         <mat-icon>edit</mat-icon>

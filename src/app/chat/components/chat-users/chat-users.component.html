@@ -5,7 +5,7 @@
       <a mat-list-item [routerLink]="['../', user.id]" *ngFor="let user of users; trackBy: trackByFn">
         <app-avatar
           matListAvatar
-          [src]="'assets/images/user-no-photo.png'"
+          [src]="user.getPhotoURL()"
           [title]="user.name"
           [containerStyles]="{width: '40px', height: '40px', margin: 0}">
         </app-avatar>

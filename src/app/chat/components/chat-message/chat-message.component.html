@@ -1,6 +1,6 @@
 <div class="message-container">
   <app-avatar
-    [src]="'assets/images/user-no-photo.png'"
+    [src]="message.sender.getPhotoURL()"
     [title]="message.sender.name"
     [containerStyles]="{width: '40px', height: '40px', margin: 0}"
     [style.order]="isFromSender ? 1 : 0">
