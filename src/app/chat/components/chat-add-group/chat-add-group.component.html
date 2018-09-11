@@ -1,5 +1,17 @@
 <h2 mat-dialog-title>New Group</h2>
 
+<input type="file" accept="image/*" [hidden]="true" #inputFile>
+
+<div class="group-cover">
+  <app-avatar
+    src="assets/images/group-no-photo.png"
+    title="Group cover">
+      <button mat-icon-button color="primary" class="btn-choose-photo" (click)="inputFile.click()">
+        <mat-icon>camera_alt</mat-icon>
+      </button>
+  </app-avatar>
+</div>
+
 <form [formGroup]="newGroupForm" (submit)="onSubmit()">
 
   <mat-dialog-content>
