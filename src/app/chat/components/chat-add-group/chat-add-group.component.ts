@@ -17,6 +17,7 @@ import { UserService } from '../../../core/services/user.service';
 export class ChatAddGroupComponent implements OnDestroy, OnInit {
 
   newGroupForm: FormGroup;
+  selectedImage: File;
   users$: Observable<User[]>;
   private subscriptions: Subscription[] = [];
 
@@ -62,6 +63,11 @@ export class ChatAddGroupComponent implements OnDestroy, OnInit {
 
   removeMember(index: number): void {
     this.members.removeAt(index);
+  }
+
+  onSelectImage(event: Event): void {
+    const file = (<HTMLInputElement>event.target).files[0];
+    this.selectedImage = file;
   }
 
   onSubmit(): void {

@@ -1,10 +1,10 @@
 <h2 mat-dialog-title>New Group</h2>
 
-<input type="file" accept="image/*" [hidden]="true" #inputFile>
+<input type="file" accept="image/*" [hidden]="true" #inputFile (change)="onSelectImage($event)">
 
 <div class="group-cover">
   <app-avatar
-    src="assets/images/group-no-photo.png"
+    [src]="(selectedImage | readFile | async) || 'assets/images/group-no-photo.png'"
     title="Group cover">
       <button mat-icon-button color="primary" class="btn-choose-photo" (click)="inputFile.click()">
         <mat-icon>camera_alt</mat-icon>
