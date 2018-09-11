@@ -19,6 +19,7 @@ import {
 import { GET_CHAT_MESSAGES_QUERY, USER_MESSAGES_SUBSCRIPTION, AllMessagesQuery } from './message.graphql';
 import { Chat } from '../models/chat.model';
 import { Message } from '../models/message.model';
+import { User } from '../../core/models/user.model';
 import { UserService } from '../../core/services/user.service';
 
 @Injectable({
@@ -150,7 +151,12 @@ export class ChatService extends BaseService {
             const valueB = (b.messages.length > 0) ? new Date(b.messages[0].createdAt).getTime() : new Date(b.createdAt).getTime();
             return valueB - valueA;
           });
-        })
+        }),
+        map(chats => chats.map(c => {
+          const chat = new Chat(c);
+          chat.users = chat.users.map(u => new User(u));
+          return chat;
+        }))
       );
   }
 
