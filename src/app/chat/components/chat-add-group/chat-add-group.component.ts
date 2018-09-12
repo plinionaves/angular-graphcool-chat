@@ -1,11 +1,14 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MatSnackBar } from '@angular/material';
-import { Observable, Subscription } from 'rxjs';
-import { map, take } from 'rxjs/operators';
+import { Observable, Subscription, of } from 'rxjs';
+import { map, mergeMap, take } from 'rxjs/operators';
 
 import { Chat } from '../../models/chat.model';
 import { ChatService } from '../../services/chat.service';
+import { ErrorService } from '../../../core/services/error.service';
+import { FileModel } from '../../../core/models/file.model';
+import { FileService } from '../../../core/services/file.service';
 import { User } from '../../../core/models/user.model';
 import { UserService } from '../../../core/services/user.service';
 
@@ -24,7 +27,9 @@ export class ChatAddGroupComponent implements OnDestroy, OnInit {
   constructor(
     private chatService: ChatService,
     private dialogRef: MatDialogRef<ChatAddGroupComponent>,
+    private errorService: ErrorService,
     private fb: FormBuilder,
+    private fileService: FileService,
     private snackBar: MatSnackBar,
     private userService: UserService
   ) { }
@@ -71,18 +76,33 @@ export class ChatAddGroupComponent implements OnDestroy, OnInit {
   }
 
   onSubmit(): void {
-    const formValue = Object.assign({
-      title: this.title.value,
-      usersIds: this.members.value.map(m => m.id),
-      photoId: null
-    });
 
-    this.chatService.createGroup(formValue)
-      .pipe(take(1))
-      .subscribe((chat: Chat) => {
-        this.dialogRef.close();
-        this.snackBar.open(`${chat.title} created!`, 'OK', { duration: 3000 });
-      });
+    let operation: Observable<FileModel> = of(null);
+
+    if (this.selectedImage) {
+      operation = this.fileService.upload(this.selectedImage);
+    }
+
+    let message: string;
+    operation
+      .pipe(
+        mergeMap((uploadedImage: FileModel) => {
+          const formValue = Object.assign({
+            title: this.title.value,
+            usersIds: this.members.value.map(m => m.id),
+            photoId: (uploadedImage) ? uploadedImage.id : null
+          });
+          return this.chatService.createGroup(formValue);
+        }),
+        take(1)
+      ).subscribe(
+        (chat: Chat) => message = `'${chat.title}' created!`,
+        (error) => message = this.errorService.getErrorMessage(error),
+        () => {
+          this.dialogRef.close();
+          this.snackBar.open(message, 'OK', { duration: 3000 });
+        }
+      );
 
   }
 
