@@ -228,13 +228,23 @@ export class ChatService extends BaseService {
           title: variables.title,
           createdAt: new Date().toISOString(),
           isGroup: true,
+          photo: {
+            __typename: 'File',
+            id: '',
+            secret: ''
+          },
           users: [
             {
               __typename: 'User',
               id: '',
               name: '',
               email: '',
-              createdAt: new Date().toISOString()
+              createdAt: new Date().toISOString(),
+              photo: {
+                __typename: 'File',
+                id: '',
+                secret: ''
+              }
             }
           ],
           messages: []

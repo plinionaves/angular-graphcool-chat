@@ -17,6 +17,9 @@ const ChatFragment = gql`
     title
     createdAt
     isGroup
+    photo {
+      ...FileFragment
+    }
     users(
       first: 1,
       filter: {
