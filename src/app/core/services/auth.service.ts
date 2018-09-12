@@ -28,7 +28,6 @@ export class AuthService {
     private router: Router,
     private userService: UserService
   ) {
-    this.isAuthenticated.subscribe(is => console.log('AuthState', is));
     this.init();
   }
 

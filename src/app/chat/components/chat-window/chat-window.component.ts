@@ -86,7 +86,7 @@ export class ChatWindowComponent extends BaseComponent<Message> implements After
       if (this.chat) {
 
         this.createMessage()
-          .pipe(take(1)).subscribe(console.log);
+          .pipe(take(1)).subscribe();
 
         this.newMessage = '';
 
