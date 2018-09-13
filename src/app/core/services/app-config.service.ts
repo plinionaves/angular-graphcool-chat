@@ -17,10 +17,10 @@ export class AppConfigService {
 
   getDifference(): void {
     if (!this.timeDifference) {
-      this.http.get('http://worldclockapi.com/api/json/utc/now')
+      this.http.get('https://time-api.now.sh/current-time')
         .pipe(take(1))
         .subscribe(res => {
-          this.timeDifference = new Date(res['currentDateTime']).getTime() - Date.now();
+          this.timeDifference = new Date(res['ISO']).getTime() - Date.now();
         });
     }
   }
