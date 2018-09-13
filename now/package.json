@@ -1,0 +1,25 @@
+{
+  "name": "angular-graphcool-chat",
+  "version": "1.0.0",
+  "description": "Angular Graphcool Chat",
+  "author": "Plínio Naves <pliniopjn@hotmail.com>",
+  "license": "ISC",
+  "scripts": {
+    "start": "serve --single"
+  },
+  "dependencies": {
+    "serve": "latest"
+  },
+  "now": {
+    "name": "angular-graphcool-chat",
+    "alias": "angular-graphcool-chat",
+    "static": {
+      "rewrites": [
+        {
+          "source": "*",
+          "destination": "/index.html"
+        }
+      ]
+    }
+  }
+}
