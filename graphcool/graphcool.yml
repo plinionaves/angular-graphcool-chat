@@ -114,6 +114,7 @@ permissions:
 
   - operation: MessagesOnChat.connect
     authenticated: true
+    query: src/permissions/permitSendMessageToChat.graphql
 
   - operation: MessagesOnUser.connect
     authenticated: true

@@ -1,0 +1,10 @@
+query permitSendMessageToChat($user_id: ID!, $chatChat_id: ID!) {
+  SomeChatExists(
+    filter: {
+      id: $chatChat_id,
+      users_some: {
+        id: $user_id
+      }
+    }
+  )
+}
