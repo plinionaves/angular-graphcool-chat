@@ -25,6 +25,7 @@ import { FromNowPipe } from './pipes/from-now.pipe';
 import { ImagePreviewComponent } from './components/image-preview/image-preview.component';
 import { NoRecordComponent } from './components/no-record/no-record.component';
 import { ReadFilePipe } from './pipes/read-file.pipe';
+import { WarningComponent } from './components/warning/warning.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { ReadFilePipe } from './pipes/read-file.pipe';
     FromNowPipe,
     ImagePreviewComponent,
     NoRecordComponent,
-    ReadFilePipe
+    ReadFilePipe,
+    WarningComponent
   ],
   imports: [
     CommonModule,
@@ -71,7 +73,8 @@ import { ReadFilePipe } from './pipes/read-file.pipe';
     MatToolbarModule,
     NoRecordComponent,
     ReadFilePipe,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    WarningComponent
   ]
 })
 export class SharedModule { }
