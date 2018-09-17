@@ -1,0 +1,10 @@
+query permitReadAndChangeChat($node_id: ID!, $user_id: ID!) {
+  SomeChatExists(
+    filter: {
+      id: $node_id,
+      users_some: {
+        id: $user_id
+      }
+    }
+  )
+}

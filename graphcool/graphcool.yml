@@ -75,12 +75,15 @@ permissions:
   # Chat
   - operation: Chat.read
     authenticated: true
+    query: src/permissions/permitReadAndChangeChat.graphql
   - operation: Chat.create
     authenticated: true
   - operation: Chat.update
     authenticated: true
+    query: src/permissions/permitReadAndChangeChat.graphql
   - operation: Chat.delete
     authenticated: true
+    query: src/permissions/permitReadAndChangeChat.graphql
 
   # Message
   - operation: Message.read
