@@ -33,7 +33,7 @@ import { ReadFilePipe } from './pipes/read-file.pipe';
     FromNowPipe,
     ImagePreviewComponent,
     NoRecordComponent,
-    ReadFilePipe,
+    ReadFilePipe
   ],
   imports: [
     CommonModule,
@@ -71,7 +71,7 @@ import { ReadFilePipe } from './pipes/read-file.pipe';
     MatToolbarModule,
     NoRecordComponent,
     ReadFilePipe,
-    ReactiveFormsModule,
+    ReactiveFormsModule
   ]
 })
 export class SharedModule { }

@@ -18,9 +18,9 @@ export class ChatListComponent extends BaseComponent<Chat> implements OnInit {
   chats$: Observable<Chat[]>;
 
   constructor(
-    private authService: AuthService,
+    protected authService: AuthService,
     private chatService: ChatService,
-    private dialog: MatDialog
+    protected dialog: MatDialog
   ) {
     super();
   }
