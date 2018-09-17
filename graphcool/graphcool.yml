@@ -91,6 +91,7 @@ permissions:
     query: src/permissions/permitReadMessage.graphql
   - operation: Message.create
     authenticated: true
+    query: src/permissions/permitCreateMessage.graphql
   - operation: Message.update
     authenticated: true
     query: src/permissions/permitChangeMessage.graphql

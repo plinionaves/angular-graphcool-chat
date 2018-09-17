@@ -1,0 +1,16 @@
+query permitCreateMessage($user_id: ID!, $input_senderId: ID!) {
+  SomeMessageExists(
+    filter: {
+      sender: {
+        AND: [
+          {
+            id: $user_id
+          },
+          {
+            id: $input_senderId
+          }
+        ]
+      }
+    }
+  )
+}
