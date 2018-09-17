@@ -1,0 +1,12 @@
+query permitReadMessage($node_id: ID!, $user_id: ID!) {
+  SomeMessageExists(
+    filter: {
+      id: $node_id,
+      chat: {
+        users_some: {
+          id: $user_id
+        }
+      }
+    }
+  )
+}
