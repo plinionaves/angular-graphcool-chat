@@ -1,0 +1,10 @@
+query permitChangeMessage($node_id: ID!, $user_id: ID!) {
+  SomeMessageExists(
+    filter: {
+      id: $node_id,
+      sender: {
+        id: $user_id
+      }
+    }
+  )
+}

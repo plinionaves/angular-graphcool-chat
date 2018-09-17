@@ -93,8 +93,10 @@ permissions:
     authenticated: true
   - operation: Message.update
     authenticated: true
+    query: src/permissions/permitChangeMessage.graphql
   - operation: Message.delete
     authenticated: true
+    query: src/permissions/permitChangeMessage.graphql
 
   # File
   - operation: File.read
