@@ -20,6 +20,7 @@ import {
 } from '@angular/material';
 
 import { AvatarComponent } from './components/avatar/avatar.component';
+import { DialogConfirmComponent } from './components/dialog-confirm/dialog-confirm.component';
 import { FromNowPipe } from './pipes/from-now.pipe';
 import { ImagePreviewComponent } from './components/image-preview/image-preview.component';
 import { NoRecordComponent } from './components/no-record/no-record.component';
@@ -28,10 +29,11 @@ import { ReadFilePipe } from './pipes/read-file.pipe';
 @NgModule({
   declarations: [
     AvatarComponent,
+    DialogConfirmComponent,
     FromNowPipe,
     ImagePreviewComponent,
     NoRecordComponent,
-    ReadFilePipe
+    ReadFilePipe,
   ],
   imports: [
     CommonModule,
@@ -42,11 +44,13 @@ import { ReadFilePipe } from './pipes/read-file.pipe';
     MatToolbarModule
   ],
   entryComponents: [
+    DialogConfirmComponent,
     ImagePreviewComponent
   ],
   exports: [
     AvatarComponent,
     CommonModule,
+    DialogConfirmComponent,
     FormsModule,
     FromNowPipe,
     ImagePreviewComponent,
@@ -67,7 +71,7 @@ import { ReadFilePipe } from './pipes/read-file.pipe';
     MatToolbarModule,
     NoRecordComponent,
     ReadFilePipe,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ]
 })
 export class SharedModule { }
