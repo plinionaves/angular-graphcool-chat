@@ -1,27 +1,91 @@
-# AngularGraphcoolChat
+# Angular Graphcool Chat
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.0.
+Este é o repositório do projeto desenvolvido no [Curso completo de Angular 6 (+Apollo, GraphQL e Graphcool)
+](https://www.udemy.com/curso-completo-de-angular-apollo-e-graphql/?couponCode=ANGULARGITHUB) disponível na Udemy.com.
 
-## Development server
+![Curso completo de Angular 6 (+Apollo, GraphQL e Graphcool)](static/capa-oficial-curso.png)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+A aplicação é um Chat Realtime desenvolvido com as seguintes tecnologias e recursos:
 
-## Code scaffolding
+* Client Side
+  * Angular (6+)
+  * RxJS
+  * Apollo Client
+  * Apollo Angular
+  * Apollo Cache InMemory
+  * Apollo Cache Persist
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+* Server Side
+  * Graphcool (BaaS)
+  * API GraphQL (Queries, Mutations e Realtime Subscriptions)
+  * Regras de permissão de acesso
+  * Upload de arquivos
 
-## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+## Gostaria de testar?
 
-## Running unit tests
+O Chat está disponível como uma Web App, acesse o link abaixo para testar:
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+* [Angular Graphcool Chat](https://angular-graphcool-chat.now.sh)
 
-## Running end-to-end tests
+## Conteúdo do curso
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+O curso trata sobre uma série de assuntos, entre eles:
 
-## Further help
+* Instalação, configuração e utilização do Apollo Angular
+* Modelagem de dados com GraphQL Types
+* Autenticação com JSON Web Tokens (JWT) no Angular (e no Graphcool)
+* Lista de permissões
+* AuthState (com RxJS ReplaySubject) e Login Automático
+* Template Driven e Reactive Forms
+* Roteamento e Guardas de Rotas
+* Modularização, Lazy Loading e estratégias de Preloading
+* Comunicação entre Components com Input e Output Properties
+* Content Projection
+* Queries
+* Mutations
+* Realtime Subscriptions
+* Interceptação de requisições HTTP e WebSocket
+* Chats one-to-one e grupos
+* Otimização no Apollo com watchQuery, acesso direto ao cache e Optimistic UI
+* Upload de imagens
+* Build de produção + deploy
+* e muito mais!
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+Veja a [grade completa na página do curso](https://www.udemy.com/curso-completo-de-angular-apollo-e-graphql/?couponCode=ANGULARGITHUB).
+
+## Teste localmente
+
+Se quiser testar o projeto localmente basta seguir estes passos:
+
+1. Clone o repositório
+```bash
+git clone git@github.com:plinionaves/angular-graphcool-chat.git
+```
+
+2. Acesse o diretório criado para o projeto
+```bash
+cd angular-graphcool-chat
+```
+
+3. Instale as dependências:
+```bash
+npm install
+```
+
+4. Execute
+```bash
+ng serve -o
+```
+*É necessário ter o [Angular CLI](https://github.com/angular/angular-cli) instalado para rodar o comando acima*
+
+## Contato
+
+Desenvolvido por: [Plínio Naves](https://www.udemy.com/user/plinio-naves/)
+
+* Email: [pliniopjn@hotmail.com](mailto:pliniopjn@hotmail.com)
+* Twitter: [@plinionaves](https://twitter.com/plinionaves)
+* Github: [github.com/plinionaves](https://github.com/plinionaves)
+* Linkedin: [linkedin.com/in/plinionaves/](https://www.linkedin.com/in/plinionaves/)
+
+Participe do nosso grupo no Facebook: [Cursos Plínio Naves](https://www.facebook.com/groups/200267383740594)
