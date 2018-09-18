@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { AuthGuard } from '../login/auth.guard';
 import { DashboardHomeComponent } from './components/dashboard-home/dashboard-home.component';
+import { DashboardPermissionDeniedComponent } from './components/dashboard-permission-denied/dashboard-permission-denied.component';
 import { DashboardResourcesComponent } from './components/dashboard-resources/dashboard-resources.component';
 
 const routes: Routes = [
@@ -14,6 +15,7 @@ const routes: Routes = [
     children: [
       { path: 'chat', loadChildren: './../chat/chat.module#ChatModule', canLoad: [ AuthGuard ] },
       { path: 'profile', loadChildren: './../user/user.module#UserModule', canLoad: [ AuthGuard ] },
+      { path: 'permission-denied', component: DashboardPermissionDeniedComponent, canActivate: [ AuthGuard ] },
       { path: '', component: DashboardResourcesComponent }
     ]
   }
