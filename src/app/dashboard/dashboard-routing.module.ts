@@ -13,8 +13,8 @@ const routes: Routes = [
     canActivate: [ AuthGuard ],
     canActivateChild: [ AuthGuard ],
     children: [
-      { path: 'chat', loadChildren: './../chat/chat.module#ChatModule', canLoad: [ AuthGuard ] },
-      { path: 'profile', loadChildren: './../user/user.module#UserModule', canLoad: [ AuthGuard ] },
+      { path: 'chat', loadChildren: './../chat/chat.module#ChatModule', canActivate: [ AuthGuard ], data: { preload: true } },
+      { path: 'profile', loadChildren: './../user/user.module#UserModule', canActivate: [ AuthGuard ] },
       { path: 'permission-denied', component: DashboardPermissionDeniedComponent, canActivate: [ AuthGuard ] },
       { path: '', component: DashboardResourcesComponent }
     ]

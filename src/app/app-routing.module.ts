@@ -1,14 +1,15 @@
 import { NgModule } from '@angular/core';
-import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 
 import { AuthGuard } from './login/auth.guard';
 import { NotFoundComponent } from './core/components/not-found/not-found.component';
+import { SelectivePreloadingStrategy } from './core/strategy/selective-preloading.strategy';
 
 const routes: Routes = [
   {
     path: 'dashboard',
     loadChildren: './dashboard/dashboard.module#DashboardModule',
-    canLoad: [ AuthGuard ]
+    canActivate: [ AuthGuard ]
   },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: '**', component: NotFoundComponent }
@@ -17,7 +18,7 @@ const routes: Routes = [
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, {
-      preloadingStrategy: PreloadAllModules
+      preloadingStrategy: SelectivePreloadingStrategy
     })
   ],
   exports: [ RouterModule ]
