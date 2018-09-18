@@ -11,6 +11,7 @@ type User @model {
   chats: [Chat!]! @relation(name: "UsersOnChats")
   messages: [Message!]! @relation(name: "MessagesOnUser")
   photo: File @relation(name: "UserPhoto")
+  dummy: String
 }
 
 type Chat @model {
